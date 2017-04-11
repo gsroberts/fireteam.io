@@ -2,6 +2,8 @@
 
 ## Welcome to the project page for fireteam.io
 
+# Coming Soon!
+
 Fireteam.io aims to be the tool of choice for people who love to play games that have online multiplayer content and don't want to be at the mercy of the game's matchmaking algorithms.  Using fireteam.io gives those people the tools they need to setup an activity, recruit team mates and manage their play time and keep it fun.  
 
 ### Key features of fireteam.io
