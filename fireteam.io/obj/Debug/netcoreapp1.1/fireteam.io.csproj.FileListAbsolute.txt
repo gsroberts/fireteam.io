@@ -1,0 +1,9 @@
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\bin\Debug\netcoreapp1.1\fireteam.io.deps.json
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\bin\Debug\netcoreapp1.1\fireteam.io.runtimeconfig.json
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\bin\Debug\netcoreapp1.1\fireteam.io.runtimeconfig.dev.json
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\bin\Debug\netcoreapp1.1\fireteam.io.dll
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\bin\Debug\netcoreapp1.1\fireteam.io.pdb
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\obj\Debug\netcoreapp1.1\fireteam.io.csprojResolveAssemblyReference.cache
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\obj\Debug\netcoreapp1.1\fireteam.io.AssemblyInfo.cs
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\obj\Debug\netcoreapp1.1\fireteam.io.dll
+c:\users\oitadmin\documents\visual studio 2017\Projects\fireteam.io\fireteam.io\obj\Debug\netcoreapp1.1\fireteam.io.pdb
