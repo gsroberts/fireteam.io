@@ -1,39 +1,15 @@
 ![fireteam.io logo](http://fireteam.io/fireteam-io-logo-dark.png)
 
-## Welcome to GitHu
+## Welcome to the project page for fireteam.io
 
-You can use the [editor on GitHub](https://github.com/gsroberts/fireteam.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Fireteam.io aims to be the tool of choice for people who love to play games that have online multiplayer content and don't want to be at the mercy of the game's matchmaking algorithms.  Using fireteam.io gives those people the tools they need to setup an activity, recruit team mates and manage their play time and keep it fun.  
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Key features of fireteam.io
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/gsroberts/fireteam.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+* Create clans and groups of friends that you play with regularly and create activities for those groups, or create public activities that anyone can join
+* Activity creation and management gives an organizer the tools they need to ensure that everyone participating in the activity is able to enjoy themselves
+* Easily find and join activities created by others 
+* Any game, any activity can be setup through fireteam.io, not just first-person style shooters or MMOs
+* Strong privacy controls
+* Fireteam.io is better with friends, so we make it easy to invite people and for people outside of the service to find and join games
+* Use one of several integration points to connect other services such as Slack so that you can keep track of and discuss your games
