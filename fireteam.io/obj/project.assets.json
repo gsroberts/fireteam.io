@@ -9813,10 +9813,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\oitadmin\\Documents\\Visual Studio 2017\\Projects\\fireteam.io\\fireteam.io\\fireteam.io.csproj",
+      "projectUniqueName": "C:\\Users\\oitadmin\\Documents\\GitHub\\fireteam.io\\fireteam.io\\fireteam.io.csproj",
       "projectName": "fireteam.io",
-      "projectPath": "C:\\Users\\oitadmin\\Documents\\Visual Studio 2017\\Projects\\fireteam.io\\fireteam.io\\fireteam.io.csproj",
-      "outputPath": "C:\\Users\\oitadmin\\Documents\\Visual Studio 2017\\Projects\\fireteam.io\\fireteam.io\\obj\\",
+      "projectPath": "C:\\Users\\oitadmin\\Documents\\GitHub\\fireteam.io\\fireteam.io\\fireteam.io.csproj",
+      "outputPath": "C:\\Users\\oitadmin\\Documents\\GitHub\\fireteam.io\\fireteam.io\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
