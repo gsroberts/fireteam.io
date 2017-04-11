@@ -1,4 +1,6 @@
-## Welcome to GitHub Pages
+![fireteam.io logo](http://fireteam.io/fireteam-io-logo-dark.png)
+
+## Welcome to GitHu
 
 You can use the [editor on GitHub](https://github.com/gsroberts/fireteam.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
