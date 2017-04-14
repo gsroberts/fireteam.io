@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fireteam.Common.Models
+namespace Fireteam.Models
 {
     /// <summary>
     /// This class represents a group activity that is being organized through the
@@ -27,8 +27,11 @@ namespace Fireteam.Common.Models
 
         /// <summary>
         /// Gets or sets the activity's duration
+        /// 
+        /// Create a TimeSpan object from user input and use the string
+        /// representation for this field
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public string Duration { get; set; }
 
         /// <summary>
         /// Gets or sets the time zone ID for this activity
@@ -105,15 +108,9 @@ namespace Fireteam.Common.Models
         public User User { get; set; }
 
         /// <summary>
-        /// Gets or sets a colleciton of partipants who have been
-        /// booted or kicked from this activity
-        /// </summary>
-        public ICollection<User> BootedParticipants { get; set; }
-
-        /// <summary>
-        /// Gets or sets a collecition of participants for this
+        /// Gets or sets a collection of participants for this
         /// activity
         /// </summary>
-        public ICollection<User> Participants { get; set; }
+        public ICollection<ActivityUser> Participants { get; set; }
     }
 }

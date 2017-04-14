@@ -1,4 +1,4 @@
-﻿namespace Fireteam.Common.Models
+﻿namespace Fireteam.Models
 {
     /// <summary>
     /// Represents a user's account for a specific platform

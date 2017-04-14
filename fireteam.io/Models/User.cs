@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Fireteam.Common.Models
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represents a user of the fireteam.io service
@@ -70,7 +69,7 @@ namespace Fireteam.Common.Models
         /// signed up for, the blocked user will only see the name Anonymous and
         /// will not be able to click the name to view the user's profile
         /// </summary>
-        public ICollection<User> BlockedUsers { get; set; }
+        //public ICollection<BlockedUser> BlockedUsers { get; set; }
 
         /// <summary>
         /// Gets or sets a list of accounts on a number of platforms that this user
@@ -79,31 +78,31 @@ namespace Fireteam.Common.Models
         /// Platform accounts are intended to be unique as only one person can log in
         /// to the account at any given point
         /// </summary>
-        public ICollection<PlatformAccount> PlatformAccounts { get; set; }
+        public ICollection<UserPlatformAccount> PlatformAccounts { get; set; }
         
         /// <summary>
         /// Gets or sets a list of this users groups
         /// </summary>
-        public ICollection<Group> Groups { get; set; }
+        public ICollection<UserGroup> Groups { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's games
         /// </summary>
-        public ICollection<Game> Games { get; set; }
+        public ICollection<UserGame> Games { get; set; }
 
         /// <summary>
         /// Gets or sets a list of the platforms this user plays on
         /// </summary>
-        public ICollection<Platform> Platforms { get; set; }
+        public ICollection<UserPlatform> Platforms { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's activities
         /// </summary>
-        public ICollection<Activity> Activities { get; set; }
+        public ICollection<UserActivity> Activities { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's friends
         /// </summary>
-        public ICollection<User> Friends { get; set; }
+        public ICollection<UserFriends> Friends { get; set; }
     }          
 }

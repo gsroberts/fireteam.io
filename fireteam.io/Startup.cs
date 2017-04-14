@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 
-namespace fireteam.io
+namespace Fireteam
 {
     public class Startup
     {
@@ -30,11 +31,9 @@ namespace fireteam.io
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<FireteamDbContext>(options =>
-                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-
-            // Add framework services.
             services.AddMvc();
+
+            services.AddDbContext<FireteamDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

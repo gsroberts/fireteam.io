@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fireteam.Common.Models
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represents a given game title
@@ -39,6 +39,6 @@ namespace Fireteam.Common.Models
         /// <summary>
         /// The platforms for which this game is available
         /// </summary>
-        public ICollection<Platform> Platforms { get; set; }
+        public ICollection<GamePlatform> Platforms { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Routing;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace fireteam.io.Controllers.api
+namespace Fireteam.Controllers.Api
 {
     [Route("api/[controller]")]
     public class UserController : Controller

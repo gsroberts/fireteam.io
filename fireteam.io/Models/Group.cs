@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fireteam.Common.Models
+namespace Fireteam.Models
 {
     /// <summary>
     /// This class represents a group of users within fireteam.io
@@ -44,30 +44,23 @@ namespace Fireteam.Common.Models
         public bool IsInviteOnly { get; set; }
 
         /// <summary>
-        /// Gets or sets a list of users that are this groups leadership
-        /// 
-        /// Users in this collection will have admin rights to the group
-        /// </summary>
-        public ICollection<User> Leaders { get; set; }
-
-        /// <summary>
         /// Gets or sets a list of the members of this group
         /// </summary>
-        public ICollection<User> Members { get; set; }
+        public ICollection<GroupUser> Members { get; set; }
 
         /// <summary>
         /// Gets or sets a list of games for this group
         /// </summary>
-        public ICollection<Game> Games { get; set; }
+        public ICollection<GroupGame> Games { get; set; }
 
         /// <summary>
         /// Gets or sets a list of platforms for this group
         /// </summary>
-        public ICollection<Platform> Platforms { get; set; }
+        public ICollection<GroupPlatform> Platforms { get; set; }
 
         /// <summary>
         /// Gets or sets a list of activities for this group
         /// </summary>
-        public ICollection<Activity> Activities { get; set; }
+        public ICollection<GroupActivity> Activities { get; set; }
     }
 }

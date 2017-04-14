@@ -1,4 +1,4 @@
-﻿namespace Fireteam.Common.Models
+﻿namespace Fireteam.Models
 {
     /// <summary>
     /// Represents the type of a game a specific title is

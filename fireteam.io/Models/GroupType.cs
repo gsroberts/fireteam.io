@@ -1,4 +1,4 @@
-﻿namespace Fireteam.Common.Models
+﻿namespace Fireteam.Models
 {
     /// <summary>
     /// Represnts a group's type

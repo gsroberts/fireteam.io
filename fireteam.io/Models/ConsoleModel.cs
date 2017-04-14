@@ -1,6 +1,6 @@
 ﻿using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
-namespace Fireteam.Common.Models
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represents the console model for games and activities that are
