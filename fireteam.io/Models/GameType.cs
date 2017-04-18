@@ -1,4 +1,6 @@
-﻿namespace Fireteam.Models
+﻿using System.Collections.Generic;
+
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represents the type of a game a specific title is
@@ -26,13 +28,8 @@
         public bool IsConsoleGame { get; set; }
         
         /// <summary>
-        /// Gets or sets the console model ID for this game if applicable
-        /// </summary>
-        public int ConsoleModelID { get; set; }
-
-        /// <summary>
         /// Gets or sets the console model for this game if applicable
         /// </summary>
-        public ConsoleModel ConsoleModel { get; set; }
+        public ICollection<ConsoleModel> ConsoleModels { get; set; }
     }
 }

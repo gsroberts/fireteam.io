@@ -10,6 +10,8 @@ namespace Fireteam.Models
     {
         public int ID { get; set; }
         public int GameID { get; set; }
+        public virtual Game Game { get; set; }
         public int PlatformID { get; set; }
+        public virtual Platform Platform { get; set; }
     }
 }

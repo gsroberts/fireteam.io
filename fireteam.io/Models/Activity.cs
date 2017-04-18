@@ -111,6 +111,6 @@ namespace Fireteam.Models
         /// Gets or sets a collection of participants for this
         /// activity
         /// </summary>
-        public ICollection<ActivityUser> Participants { get; set; }
+        public virtual ICollection<ActivityUser> Participants { get; set; }
     }
 }

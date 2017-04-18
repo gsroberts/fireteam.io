@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Fireteam;
+using Fireteam.Data;
 
 namespace Fireteam.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
-    [Migration("20170414181128_InitialCreate")]
+    [Migration("20170418170802_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,37 @@ namespace Fireteam.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("ActivityUser");
+                    b.ToTable("ActivityUsers");
+                });
+
+            modelBuilder.Entity("Fireteam.Models.BlockedUser", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ActivityID");
+
+                    b.Property<int?>("BlockingGroupID");
+
+                    b.Property<int?>("BlockingUserID");
+
+                    b.Property<int>("UserID");
+
+                    b.Property<int?>("UserID1");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ActivityID");
+
+                    b.HasIndex("BlockingGroupID");
+
+                    b.HasIndex("BlockingUserID");
+
+                    b.HasIndex("UserID");
+
+                    b.HasIndex("UserID1");
+
+                    b.ToTable("BlockedUsers");
                 });
 
             modelBuilder.Entity("Fireteam.Models.ConsoleModel", b =>
@@ -101,11 +131,15 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("GameTypeID");
+
                     b.Property<string>("Manufacturer");
 
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("GameTypeID");
 
                     b.ToTable("ConsoleModels");
                 });
@@ -143,15 +177,15 @@ namespace Fireteam.Migrations
 
                     b.HasIndex("GameID");
 
-                    b.ToTable("GamePlatform");
+                    b.HasIndex("PlatformID");
+
+                    b.ToTable("GamePlatforms");
                 });
 
             modelBuilder.Entity("Fireteam.Models.GameType", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ConsoleModelID");
 
                     b.Property<string>("Description");
 
@@ -160,8 +194,6 @@ namespace Fireteam.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ConsoleModelID");
 
                     b.ToTable("GameTypes");
                 });
@@ -197,11 +229,17 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("GroupID");
 
+                    b.Property<int?>("GroupID1");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("ActivityID");
 
                     b.HasIndex("GroupID");
 
-                    b.ToTable("GroupActivity");
+                    b.HasIndex("GroupID1");
+
+                    b.ToTable("GroupActivities");
                 });
 
             modelBuilder.Entity("Fireteam.Models.GroupGame", b =>
@@ -215,9 +253,11 @@ namespace Fireteam.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("GameID");
+
                     b.HasIndex("GroupID");
 
-                    b.ToTable("GroupGame");
+                    b.ToTable("GroupGames");
                 });
 
             modelBuilder.Entity("Fireteam.Models.GroupPlatform", b =>
@@ -233,7 +273,9 @@ namespace Fireteam.Migrations
 
                     b.HasIndex("GroupID");
 
-                    b.ToTable("GroupPlatform");
+                    b.HasIndex("PlatformID");
+
+                    b.ToTable("GroupPlatforms");
                 });
 
             modelBuilder.Entity("Fireteam.Models.GroupType", b =>
@@ -267,7 +309,7 @@ namespace Fireteam.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("GroupUser");
+                    b.ToTable("GroupUsers");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Platform", b =>
@@ -339,12 +381,14 @@ namespace Fireteam.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ActivityID");
+
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserActivity");
+                    b.ToTable("UserActivities");
                 });
 
-            modelBuilder.Entity("Fireteam.Models.UserFriends", b =>
+            modelBuilder.Entity("Fireteam.Models.UserFriend", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -355,9 +399,15 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("UserID");
 
+                    b.Property<int?>("UserID1");
+
                     b.HasKey("ID");
 
                     b.HasIndex("FriendID");
+
+                    b.HasIndex("UserID");
+
+                    b.HasIndex("UserID1");
 
                     b.ToTable("UserFriends");
                 });
@@ -373,9 +423,11 @@ namespace Fireteam.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("GameID");
+
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserGame");
+                    b.ToTable("UserGames");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserGroup", b =>
@@ -389,9 +441,11 @@ namespace Fireteam.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("GroupID");
+
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserGroup");
+                    b.ToTable("UserGroups");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserPlatform", b =>
@@ -405,9 +459,11 @@ namespace Fireteam.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("PlatformID");
+
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserPlatform");
+                    b.ToTable("UserPlatforms");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserPlatformAccount", b =>
@@ -425,7 +481,7 @@ namespace Fireteam.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("UserPlatformAccount");
+                    b.ToTable("UserPlatformAccounts");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Activity", b =>
@@ -452,7 +508,7 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.ActivityUser", b =>
                 {
-                    b.HasOne("Fireteam.Models.Activity")
+                    b.HasOne("Fireteam.Models.Activity", "Activity")
                         .WithMany("Participants")
                         .HasForeignKey("ActivityID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -461,6 +517,37 @@ namespace Fireteam.Migrations
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Fireteam.Models.BlockedUser", b =>
+                {
+                    b.HasOne("Fireteam.Models.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityID");
+
+                    b.HasOne("Fireteam.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("BlockingGroupID");
+
+                    b.HasOne("Fireteam.Models.User", "BlockingUser")
+                        .WithMany()
+                        .HasForeignKey("BlockingUserID");
+
+                    b.HasOne("Fireteam.Models.User")
+                        .WithMany("BlockedUsers")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID1");
+                });
+
+            modelBuilder.Entity("Fireteam.Models.ConsoleModel", b =>
+                {
+                    b.HasOne("Fireteam.Models.GameType")
+                        .WithMany("ConsoleModels")
+                        .HasForeignKey("GameTypeID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Game", b =>
@@ -473,17 +560,14 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.GamePlatform", b =>
                 {
-                    b.HasOne("Fireteam.Models.Game")
+                    b.HasOne("Fireteam.Models.Game", "Game")
                         .WithMany("Platforms")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
 
-            modelBuilder.Entity("Fireteam.Models.GameType", b =>
-                {
-                    b.HasOne("Fireteam.Models.ConsoleModel", "ConsoleModel")
+                    b.HasOne("Fireteam.Models.Platform", "Platform")
                         .WithMany()
-                        .HasForeignKey("ConsoleModelID")
+                        .HasForeignKey("PlatformID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -497,15 +581,29 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.GroupActivity", b =>
                 {
-                    b.HasOne("Fireteam.Models.Group")
-                        .WithMany("Activities")
+                    b.HasOne("Fireteam.Models.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.Group", "Group")
+                        .WithMany()
                         .HasForeignKey("GroupID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.Group")
+                        .WithMany("Activities")
+                        .HasForeignKey("GroupID1");
                 });
 
             modelBuilder.Entity("Fireteam.Models.GroupGame", b =>
                 {
-                    b.HasOne("Fireteam.Models.Group")
+                    b.HasOne("Fireteam.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.Group", "Group")
                         .WithMany("Games")
                         .HasForeignKey("GroupID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -513,15 +611,20 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.GroupPlatform", b =>
                 {
-                    b.HasOne("Fireteam.Models.Group")
+                    b.HasOne("Fireteam.Models.Group", "Group")
                         .WithMany("Platforms")
                         .HasForeignKey("GroupID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Fireteam.Models.GroupUser", b =>
                 {
-                    b.HasOne("Fireteam.Models.Group")
+                    b.HasOne("Fireteam.Models.Group", "Group")
                         .WithMany("Members")
                         .HasForeignKey("GroupID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -546,22 +649,41 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.UserActivity", b =>
                 {
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Activities")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Fireteam.Models.UserFriends", b =>
+            modelBuilder.Entity("Fireteam.Models.UserFriend", b =>
                 {
                     b.HasOne("Fireteam.Models.User", "Friend")
-                        .WithMany("Friends")
+                        .WithMany()
                         .HasForeignKey("FriendID");
+
+                    b.HasOne("Fireteam.Models.User")
+                        .WithMany("Friends")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID1");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserGame", b =>
                 {
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Games")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -569,7 +691,12 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.UserGroup", b =>
                 {
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Groups")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -577,7 +704,12 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.UserPlatform", b =>
                 {
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Platforms")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -590,7 +722,7 @@ namespace Fireteam.Migrations
                         .HasForeignKey("PlatformAccountID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("PlatformAccounts")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);

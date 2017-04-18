@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Fireteam.Models
 {
-    public class UserFriends
+    public class UserFriend
     {
         public int ID { get; set; }
         public int UserID { get; set; }
+        public virtual User User { get; set; }
         [ForeignKey("FriendID")]
         public User Friend { get; set; }
         public bool CanAddToActivities { get; set; }

@@ -10,8 +10,9 @@ namespace Fireteam.Models
     {
         public int ID { get; set; }
         public int ActivityID { get; set; }
+        public virtual Activity Activity { get; set; }
         public int UserID { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public bool IsTentative { get; set; }
         public bool HasBeenBooted { get; set; }
         public bool ReasonForBoot { get; set; }

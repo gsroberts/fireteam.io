@@ -10,7 +10,8 @@ namespace Fireteam.Models
     {
         public int ID { get; set; }
         public int UserID { get; set; }
+        public virtual User User { get; set; } 
         public int PlatformAccountID { get; set; }
-        public PlatformAccount PlatformAccount { get; set; }
+        public virtual PlatformAccount PlatformAccount { get; set; }
     }
 }

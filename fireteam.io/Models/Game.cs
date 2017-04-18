@@ -39,6 +39,6 @@ namespace Fireteam.Models
         /// <summary>
         /// The platforms for which this game is available
         /// </summary>
-        public ICollection<GamePlatform> Platforms { get; set; }
+        public virtual ICollection<GamePlatform> Platforms { get; set; }
     }
 }

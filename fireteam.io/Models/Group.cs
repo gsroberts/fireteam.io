@@ -46,21 +46,21 @@ namespace Fireteam.Models
         /// <summary>
         /// Gets or sets a list of the members of this group
         /// </summary>
-        public ICollection<GroupUser> Members { get; set; }
+        public virtual ICollection<GroupUser> Members { get; set; }
 
         /// <summary>
         /// Gets or sets a list of games for this group
         /// </summary>
-        public ICollection<GroupGame> Games { get; set; }
+        public virtual ICollection<GroupGame> Games { get; set; }
 
         /// <summary>
         /// Gets or sets a list of platforms for this group
         /// </summary>
-        public ICollection<GroupPlatform> Platforms { get; set; }
+        public virtual ICollection<GroupPlatform> Platforms { get; set; }
 
         /// <summary>
         /// Gets or sets a list of activities for this group
         /// </summary>
-        public ICollection<GroupActivity> Activities { get; set; }
+        public virtual ICollection<GroupActivity> Activities { get; set; }
     }
 }

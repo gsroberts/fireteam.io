@@ -69,7 +69,7 @@ namespace Fireteam.Models
         /// signed up for, the blocked user will only see the name Anonymous and
         /// will not be able to click the name to view the user's profile
         /// </summary>
-        //public ICollection<BlockedUser> BlockedUsers { get; set; }
+        public virtual ICollection<BlockedUser> BlockedUsers { get; set; }
 
         /// <summary>
         /// Gets or sets a list of accounts on a number of platforms that this user
@@ -78,31 +78,31 @@ namespace Fireteam.Models
         /// Platform accounts are intended to be unique as only one person can log in
         /// to the account at any given point
         /// </summary>
-        public ICollection<UserPlatformAccount> PlatformAccounts { get; set; }
+        public virtual ICollection<UserPlatformAccount> PlatformAccounts { get; set; }
         
         /// <summary>
         /// Gets or sets a list of this users groups
         /// </summary>
-        public ICollection<UserGroup> Groups { get; set; }
+        public virtual ICollection<UserGroup> Groups { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's games
         /// </summary>
-        public ICollection<UserGame> Games { get; set; }
+        public virtual ICollection<UserGame> Games { get; set; }
 
         /// <summary>
         /// Gets or sets a list of the platforms this user plays on
         /// </summary>
-        public ICollection<UserPlatform> Platforms { get; set; }
+        public virtual ICollection<UserPlatform> Platforms { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's activities
         /// </summary>
-        public ICollection<UserActivity> Activities { get; set; }
+        public virtual ICollection<UserActivity> Activities { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's friends
         /// </summary>
-        public ICollection<UserFriends> Friends { get; set; }
+        public virtual ICollection<UserFriend> Friends { get; set; }
     }          
 }

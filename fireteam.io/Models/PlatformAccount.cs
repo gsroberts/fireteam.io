@@ -22,7 +22,7 @@
         /// <summary>
         /// Gets or sets the platform for this account
         /// </summary>
-        public Platform Platform { get; set; }
+        public virtual Platform Platform { get; set; }
 
         /// <summary>
         /// Gets or sets the console model ID for this account, if provided
@@ -34,6 +34,6 @@
         /// <summary>
         /// Gets or sets the console model for this account, if provided
         /// </summary>
-        public ConsoleModel ConsoleModel { get; set; }
+        public virtual ConsoleModel ConsoleModel { get; set; }
     }
 }

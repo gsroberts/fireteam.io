@@ -23,17 +23,18 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ConsoleModels",
+                name: "GameTypes",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    Manufacturer = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    IsConsoleGame = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ConsoleModels", x => x.ID);
+                    table.PrimaryKey("PK_GameTypes", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,23 +85,44 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GameTypes",
+                name: "ConsoleModels",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    ConsoleModelID = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    IsConsoleGame = table.Column<bool>(nullable: false),
+                    GameTypeID = table.Column<int>(nullable: true),
+                    Manufacturer = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameTypes", x => x.ID);
+                    table.PrimaryKey("PK_ConsoleModels", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GameTypes_ConsoleModels_ConsoleModelID",
-                        column: x => x.ConsoleModelID,
-                        principalTable: "ConsoleModels",
+                        name: "FK_ConsoleModels_GameTypes_GameTypeID",
+                        column: x => x.GameTypeID,
+                        principalTable: "GameTypes",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Description = table.Column<string>(nullable: true),
+                    GameTypeID = table.Column<int>(nullable: false),
+                    Publisher = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Games_GameTypes_GameTypeID",
+                        column: x => x.GameTypeID,
+                        principalTable: "GameTypes",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -124,6 +146,66 @@ namespace Fireteam.Migrations
                         name: "FK_Groups_GroupTypes_GroupTypeID",
                         column: x => x.GroupTypeID,
                         principalTable: "GroupTypes",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserFriends",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    CanAddToActivities = table.Column<bool>(nullable: false),
+                    FriendID = table.Column<int>(nullable: true),
+                    UserID = table.Column<int>(nullable: false),
+                    UserID1 = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFriends", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_Users_FriendID",
+                        column: x => x.FriendID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_Users_UserID1",
+                        column: x => x.UserID1,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserPlatforms",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    PlatformID = table.Column<int>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPlatforms", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_UserPlatforms_Platforms_PlatformID",
+                        column: x => x.PlatformID,
+                        principalTable: "Platforms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserPlatforms_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -156,235 +238,51 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserActivity",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    ActivityID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserActivity", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserActivity_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserFriends",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    CanAddToActivities = table.Column<bool>(nullable: false),
-                    FriendID = table.Column<int>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFriends", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserFriends_Users_FriendID",
-                        column: x => x.FriendID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserGame",
+                name: "GamePlatforms",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     GameID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserGame", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserGame_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserGroup",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    GroupID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserGroup", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserGroup_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserPlatform",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    PlatformID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserPlatform", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserPlatform_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Games",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    Description = table.Column<string>(nullable: true),
-                    GameTypeID = table.Column<int>(nullable: false),
-                    Publisher = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Games", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Games_GameTypes_GameTypeID",
-                        column: x => x.GameTypeID,
-                        principalTable: "GameTypes",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GroupActivity",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    ActivityID = table.Column<int>(nullable: false),
-                    GroupID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupActivity", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_GroupActivity_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GroupGame",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    GameID = table.Column<int>(nullable: false),
-                    GroupID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupGame", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_GroupGame_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GroupPlatform",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    GroupID = table.Column<int>(nullable: false),
                     PlatformID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupPlatform", x => x.ID);
+                    table.PrimaryKey("PK_GamePlatforms", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GroupPlatform_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
+                        name: "FK_GamePlatforms_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GamePlatforms_Platforms_PlatformID",
+                        column: x => x.PlatformID,
+                        principalTable: "Platforms",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupUser",
+                name: "UserGames",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    GroupID = table.Column<int>(nullable: false),
-                    IsGroupLeadership = table.Column<bool>(nullable: false),
+                    GameID = table.Column<int>(nullable: false),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupUser", x => x.ID);
+                    table.PrimaryKey("PK_UserGames", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GroupUser_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
+                        name: "FK_UserGames_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GroupUser_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserPlatformAccount",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    PlatformAccountID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserPlatformAccount", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserPlatformAccount_PlatformAccounts_PlatformAccountID",
-                        column: x => x.PlatformAccountID,
-                        principalTable: "PlatformAccounts",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserPlatformAccount_Users_UserID",
+                        name: "FK_UserGames_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
@@ -440,27 +338,138 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GamePlatform",
+                name: "GroupGames",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     GameID = table.Column<int>(nullable: false),
-                    PlatformID = table.Column<int>(nullable: false)
+                    GroupID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GamePlatform", x => x.ID);
+                    table.PrimaryKey("PK_GroupGames", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GamePlatform_Games_GameID",
+                        name: "FK_GroupGames_Games_GameID",
                         column: x => x.GameID,
                         principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupGames_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActivityUser",
+                name: "GroupPlatforms",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    GroupID = table.Column<int>(nullable: false),
+                    PlatformID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupPlatforms", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GroupPlatforms_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupPlatforms_Platforms_PlatformID",
+                        column: x => x.PlatformID,
+                        principalTable: "Platforms",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GroupUsers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    GroupID = table.Column<int>(nullable: false),
+                    IsGroupLeadership = table.Column<bool>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupUsers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GroupUsers_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupUsers_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserGroups",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    GroupID = table.Column<int>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserGroups", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_UserGroups_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserGroups_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserPlatformAccounts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    PlatformAccountID = table.Column<int>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPlatformAccounts", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_UserPlatformAccounts_PlatformAccounts_PlatformAccountID",
+                        column: x => x.PlatformAccountID,
+                        principalTable: "PlatformAccounts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserPlatformAccounts_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActivityUsers",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -473,15 +482,121 @@ namespace Fireteam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityUser", x => x.ID);
+                    table.PrimaryKey("PK_ActivityUsers", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ActivityUser_Activities_ActivityID",
+                        name: "FK_ActivityUsers_Activities_ActivityID",
                         column: x => x.ActivityID,
                         principalTable: "Activities",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityUser_Users_UserID",
+                        name: "FK_ActivityUsers_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BlockedUsers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ActivityID = table.Column<int>(nullable: true),
+                    BlockingGroupID = table.Column<int>(nullable: true),
+                    BlockingUserID = table.Column<int>(nullable: true),
+                    UserID = table.Column<int>(nullable: false),
+                    UserID1 = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlockedUsers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_BlockedUsers_Activities_ActivityID",
+                        column: x => x.ActivityID,
+                        principalTable: "Activities",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BlockedUsers_Groups_BlockingGroupID",
+                        column: x => x.BlockingGroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BlockedUsers_Users_BlockingUserID",
+                        column: x => x.BlockingUserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BlockedUsers_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BlockedUsers_Users_UserID1",
+                        column: x => x.UserID1,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GroupActivities",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ActivityID = table.Column<int>(nullable: false),
+                    GroupID = table.Column<int>(nullable: false),
+                    GroupID1 = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupActivities", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GroupActivities_Activities_ActivityID",
+                        column: x => x.ActivityID,
+                        principalTable: "Activities",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupActivities_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupActivities_Groups_GroupID1",
+                        column: x => x.GroupID1,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserActivities",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ActivityID = table.Column<int>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserActivities", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_UserActivities_Activities_ActivityID",
+                        column: x => x.ActivityID,
+                        principalTable: "Activities",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserActivities_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
@@ -509,14 +624,44 @@ namespace Fireteam.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityUser_ActivityID",
-                table: "ActivityUser",
+                name: "IX_ActivityUsers_ActivityID",
+                table: "ActivityUsers",
                 column: "ActivityID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityUser_UserID",
-                table: "ActivityUser",
+                name: "IX_ActivityUsers_UserID",
+                table: "ActivityUsers",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlockedUsers_ActivityID",
+                table: "BlockedUsers",
+                column: "ActivityID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlockedUsers_BlockingGroupID",
+                table: "BlockedUsers",
+                column: "BlockingGroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlockedUsers_BlockingUserID",
+                table: "BlockedUsers",
+                column: "BlockingUserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlockedUsers_UserID",
+                table: "BlockedUsers",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BlockedUsers_UserID1",
+                table: "BlockedUsers",
+                column: "UserID1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsoleModels_GameTypeID",
+                table: "ConsoleModels",
+                column: "GameTypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_GameTypeID",
@@ -524,14 +669,14 @@ namespace Fireteam.Migrations
                 column: "GameTypeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GamePlatform_GameID",
-                table: "GamePlatform",
+                name: "IX_GamePlatforms_GameID",
+                table: "GamePlatforms",
                 column: "GameID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameTypes_ConsoleModelID",
-                table: "GameTypes",
-                column: "ConsoleModelID");
+                name: "IX_GamePlatforms_PlatformID",
+                table: "GamePlatforms",
+                column: "PlatformID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Groups_GroupTypeID",
@@ -539,28 +684,48 @@ namespace Fireteam.Migrations
                 column: "GroupTypeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupActivity_GroupID",
-                table: "GroupActivity",
+                name: "IX_GroupActivities_ActivityID",
+                table: "GroupActivities",
+                column: "ActivityID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupActivities_GroupID",
+                table: "GroupActivities",
                 column: "GroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupGame_GroupID",
-                table: "GroupGame",
+                name: "IX_GroupActivities_GroupID1",
+                table: "GroupActivities",
+                column: "GroupID1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupGames_GameID",
+                table: "GroupGames",
+                column: "GameID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupGames_GroupID",
+                table: "GroupGames",
                 column: "GroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupPlatform_GroupID",
-                table: "GroupPlatform",
+                name: "IX_GroupPlatforms_GroupID",
+                table: "GroupPlatforms",
                 column: "GroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupUser_GroupID",
-                table: "GroupUser",
+                name: "IX_GroupPlatforms_PlatformID",
+                table: "GroupPlatforms",
+                column: "PlatformID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupUsers_GroupID",
+                table: "GroupUsers",
                 column: "GroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupUser_UserID",
-                table: "GroupUser",
+                name: "IX_GroupUsers_UserID",
+                table: "GroupUsers",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
@@ -574,8 +739,13 @@ namespace Fireteam.Migrations
                 column: "PlatformID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserActivity_UserID",
-                table: "UserActivity",
+                name: "IX_UserActivities_ActivityID",
+                table: "UserActivities",
+                column: "ActivityID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserActivities_UserID",
+                table: "UserActivities",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
@@ -584,68 +754,96 @@ namespace Fireteam.Migrations
                 column: "FriendID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserGame_UserID",
-                table: "UserGame",
+                name: "IX_UserFriends_UserID",
+                table: "UserFriends",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserGroup_UserID",
-                table: "UserGroup",
+                name: "IX_UserFriends_UserID1",
+                table: "UserFriends",
+                column: "UserID1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGames_GameID",
+                table: "UserGames",
+                column: "GameID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGames_UserID",
+                table: "UserGames",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPlatform_UserID",
-                table: "UserPlatform",
+                name: "IX_UserGroups_GroupID",
+                table: "UserGroups",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGroups_UserID",
+                table: "UserGroups",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPlatformAccount_PlatformAccountID",
-                table: "UserPlatformAccount",
+                name: "IX_UserPlatforms_PlatformID",
+                table: "UserPlatforms",
+                column: "PlatformID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPlatforms_UserID",
+                table: "UserPlatforms",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPlatformAccounts_PlatformAccountID",
+                table: "UserPlatformAccounts",
                 column: "PlatformAccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPlatformAccount_UserID",
-                table: "UserPlatformAccount",
+                name: "IX_UserPlatformAccounts_UserID",
+                table: "UserPlatformAccounts",
                 column: "UserID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ActivityUser");
+                name: "ActivityUsers");
 
             migrationBuilder.DropTable(
-                name: "GamePlatform");
+                name: "BlockedUsers");
 
             migrationBuilder.DropTable(
-                name: "GroupActivity");
+                name: "GamePlatforms");
 
             migrationBuilder.DropTable(
-                name: "GroupGame");
+                name: "GroupActivities");
 
             migrationBuilder.DropTable(
-                name: "GroupPlatform");
+                name: "GroupGames");
 
             migrationBuilder.DropTable(
-                name: "GroupUser");
+                name: "GroupPlatforms");
 
             migrationBuilder.DropTable(
-                name: "UserActivity");
+                name: "GroupUsers");
+
+            migrationBuilder.DropTable(
+                name: "UserActivities");
 
             migrationBuilder.DropTable(
                 name: "UserFriends");
 
             migrationBuilder.DropTable(
-                name: "UserGame");
+                name: "UserGames");
 
             migrationBuilder.DropTable(
-                name: "UserGroup");
+                name: "UserGroups");
 
             migrationBuilder.DropTable(
-                name: "UserPlatform");
+                name: "UserPlatforms");
 
             migrationBuilder.DropTable(
-                name: "UserPlatformAccount");
+                name: "UserPlatformAccounts");
 
             migrationBuilder.DropTable(
                 name: "Activities");
@@ -666,16 +864,16 @@ namespace Fireteam.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Platforms");
+                name: "ConsoleModels");
 
             migrationBuilder.DropTable(
-                name: "GameTypes");
+                name: "Platforms");
 
             migrationBuilder.DropTable(
                 name: "GroupTypes");
 
             migrationBuilder.DropTable(
-                name: "ConsoleModels");
+                name: "GameTypes");
         }
     }
 }

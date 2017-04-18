@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySQL.Data.EntityFrameworkCore.Extensions;
+using Fireteam.Data;
 
 namespace Fireteam.Controllers
 {
