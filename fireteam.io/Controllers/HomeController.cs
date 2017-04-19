@@ -12,22 +12,21 @@ namespace Fireteam.Controllers
 {
     public class HomeController : Controller
     {
-        public IConfigurationRoot Configuration { get; }
+        private readonly FireteamDbContext _context;
+
+        public HomeController(FireteamDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
             int currentTotalUsers = 0;
 
-            var optionsBuilder = new DbContextOptionsBuilder<FireteamDbContext>();
-            optionsBuilder.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
-
-            using (var context = new FireteamDbContext(optionsBuilder.Options))
+            var totalUsers = _context.Users;
+            if (totalUsers != null)
             {
-                var totalUsers = context.Users;
-                if (totalUsers != null)
-                {
-                    currentTotalUsers = totalUsers.Count();
-                }
+                currentTotalUsers = totalUsers.Count();
             }
 
             return View();

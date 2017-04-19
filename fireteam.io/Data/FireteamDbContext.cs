@@ -57,6 +57,9 @@ namespace Fireteam.Data
                 .HasMany(u => u.PlatformAccounts);
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Platforms);
+            //modelBuilder.Entity<User>()
+            //    .Property(u => u.Birthday)
+            //    .HasDefaultValue(DateTime.Parse("1/1/1900"));
 
             modelBuilder.Entity<Activity>()
                 .HasKey(a => a.ID);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Fireteam.Models
@@ -43,6 +44,12 @@ namespace Fireteam.Models
         /// Gets or sets the user's last name / surname
         /// </summary>
         public string LastName { get; set; }
+
+        //[Column(TypeName = "datetime2")]
+        //public DateTime Birthday { get; set; }
+
+        //[Column(TypeName = "int")]
+        //public Gender Gender { get; set; }
 
         /// <summary>
         /// Gets or sets the id of the user's timezone
@@ -104,5 +111,5 @@ namespace Fireteam.Models
         /// Gets or sets a list of this user's friends
         /// </summary>
         public virtual ICollection<UserFriend> Friends { get; set; }
-    }          
+    }
 }

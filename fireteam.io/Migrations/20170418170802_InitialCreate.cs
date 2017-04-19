@@ -158,8 +158,7 @@ namespace Fireteam.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     CanAddToActivities = table.Column<bool>(nullable: false),
                     FriendID = table.Column<int>(nullable: true),
-                    UserID = table.Column<int>(nullable: false),
-                    UserID1 = table.Column<int>(nullable: true)
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,12 +175,6 @@ namespace Fireteam.Migrations
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserFriends_Users_UserID1",
-                        column: x => x.UserID1,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -506,8 +499,7 @@ namespace Fireteam.Migrations
                     ActivityID = table.Column<int>(nullable: true),
                     BlockingGroupID = table.Column<int>(nullable: true),
                     BlockingUserID = table.Column<int>(nullable: true),
-                    UserID = table.Column<int>(nullable: false),
-                    UserID1 = table.Column<int>(nullable: true)
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -536,12 +528,6 @@ namespace Fireteam.Migrations
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BlockedUsers_Users_UserID1",
-                        column: x => x.UserID1,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -654,11 +640,6 @@ namespace Fireteam.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlockedUsers_UserID1",
-                table: "BlockedUsers",
-                column: "UserID1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ConsoleModels_GameTypeID",
                 table: "ConsoleModels",
                 column: "GameTypeID");
@@ -757,11 +738,6 @@ namespace Fireteam.Migrations
                 name: "IX_UserFriends_UserID",
                 table: "UserFriends",
                 column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserFriends_UserID1",
-                table: "UserFriends",
-                column: "UserID1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserGames_GameID",

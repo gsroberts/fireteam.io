@@ -108,8 +108,6 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("UserID");
 
-                    b.Property<int?>("UserID1");
-
                     b.HasKey("ID");
 
                     b.HasIndex("ActivityID");
@@ -119,8 +117,6 @@ namespace Fireteam.Migrations
                     b.HasIndex("BlockingUserID");
 
                     b.HasIndex("UserID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("BlockedUsers");
                 });
@@ -398,15 +394,11 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("UserID");
 
-                    b.Property<int?>("UserID1");
-
                     b.HasKey("ID");
 
                     b.HasIndex("FriendID");
 
                     b.HasIndex("UserID");
-
-                    b.HasIndex("UserID1");
 
                     b.ToTable("UserFriends");
                 });
@@ -536,10 +528,6 @@ namespace Fireteam.Migrations
                         .WithMany("BlockedUsers")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID1");
                 });
 
             modelBuilder.Entity("Fireteam.Models.ConsoleModel", b =>
@@ -670,9 +658,6 @@ namespace Fireteam.Migrations
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Fireteam.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID1");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserGame", b =>
