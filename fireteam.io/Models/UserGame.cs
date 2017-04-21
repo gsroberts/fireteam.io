@@ -12,5 +12,10 @@ namespace Fireteam.Models
         public virtual User User { get; set; }
         public int GameID { get; set; }
         public virtual Game Game { get; set; }
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

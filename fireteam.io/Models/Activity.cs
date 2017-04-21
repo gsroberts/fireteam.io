@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Fireteam.Models
 {
@@ -19,6 +21,8 @@ namespace Fireteam.Models
         /// participants
         /// </summary>
         public int AvailableSlots { get; set; }
+
+        public int ReservedSlots { get; set; }
 
         /// <summary>
         /// Gets or sets the activity's start time in UTC format
@@ -62,7 +66,7 @@ namespace Fireteam.Models
         /// <summary>
         /// Gets or sets the activity type for this activity
         /// </summary>
-        public ActivityType ActivityType{ get;set; }
+        public virtual ActivityType ActivityType{ get;set; }
 
         /// <summary>
         /// Gets or sets the description for this activity
@@ -84,7 +88,7 @@ namespace Fireteam.Models
         /// <summary>
         /// Gets or sets the game for this activity
         /// </summary>
-        public Game Game { get; set; }
+        public virtual Game Game { get; set; }
 
         /// <summary>
         /// Gets or sets the group ID for this activity, if one exists
@@ -94,18 +98,25 @@ namespace Fireteam.Models
         /// <summary>
         /// Gets or sets the group for this activity, if one exists
         /// </summary>
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the user that is this activity's
         /// organizer
         /// </summary>
-        public int UserId { get; set; }
+        public int UserID { get; set; }
 
         /// <summary>
         /// Gets or sets the user that is this activity's organizer
         /// </summary>
-        public User User { get; set; }
+        [ForeignKey("UserID")]
+        public virtual User Organizer { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or sets a collection of participants for this

@@ -11,8 +11,8 @@ namespace Fireteam.Models
         public int ID { get; set; }
 
         public int UserID { get; set; }
-
-        public virtual User User { get; set; }
+        [ForeignKey("UserID")]
+        public virtual User UserBeingBlocked { get; set; }
 
         public int? BlockingUserID { get; set; }
         [ForeignKey("BlockingUserID")]
@@ -24,5 +24,10 @@ namespace Fireteam.Models
 
         public int? ActivityID { get; set; }
         public virtual Activity Activity { get; set; }
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

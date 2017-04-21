@@ -45,11 +45,9 @@ namespace Fireteam.Models
         /// </summary>
         public string LastName { get; set; }
 
-        //[Column(TypeName = "datetime2")]
-        //public DateTime Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
-        //[Column(TypeName = "int")]
-        //public Gender Gender { get; set; }
+        public int Gender { get; set; }
 
         /// <summary>
         /// Gets or sets the id of the user's timezone
@@ -68,6 +66,12 @@ namespace Fireteam.Models
         /// </summary>
         public bool CanShowInSearches { get; set; }
 
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         /// <summary>
         /// Gets or sets a list of users that this user has blocked from viewing
         /// their activity
@@ -77,15 +81,6 @@ namespace Fireteam.Models
         /// will not be able to click the name to view the user's profile
         /// </summary>
         public virtual ICollection<BlockedUser> BlockedUsers { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of accounts on a number of platforms that this user
-        /// has access to
-        /// 
-        /// Platform accounts are intended to be unique as only one person can log in
-        /// to the account at any given point
-        /// </summary>
-        public virtual ICollection<UserPlatformAccount> PlatformAccounts { get; set; }
         
         /// <summary>
         /// Gets or sets a list of this users groups
@@ -96,16 +91,6 @@ namespace Fireteam.Models
         /// Gets or sets a list of this user's games
         /// </summary>
         public virtual ICollection<UserGame> Games { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of the platforms this user plays on
-        /// </summary>
-        public virtual ICollection<UserPlatform> Platforms { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of this user's activities
-        /// </summary>
-        public virtual ICollection<UserActivity> Activities { get; set; }
 
         /// <summary>
         /// Gets or sets a list of this user's friends

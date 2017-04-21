@@ -14,5 +14,10 @@ namespace Fireteam.Models
         public int UserID { get; set; }
         public virtual User User { get; set; }
         public bool IsGroupLeadership { get; set; }
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

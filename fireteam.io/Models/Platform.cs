@@ -1,4 +1,6 @@
-﻿namespace Fireteam.Models
+﻿using System;
+
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represnts the platform of a game
@@ -13,5 +15,11 @@
         /// Gets or sets the name for this platform
         /// </summary>
         public string Name { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

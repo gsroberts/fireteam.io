@@ -43,24 +43,15 @@ namespace Fireteam.Models
         /// </summary>
         public bool IsInviteOnly { get; set; }
 
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         /// <summary>
         /// Gets or sets a list of the members of this group
         /// </summary>
         public virtual ICollection<GroupUser> Members { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of games for this group
-        /// </summary>
-        public virtual ICollection<GroupGame> Games { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of platforms for this group
-        /// </summary>
-        public virtual ICollection<GroupPlatform> Platforms { get; set; }
-
-        /// <summary>
-        /// Gets or sets a list of activities for this group
-        /// </summary>
-        public virtual ICollection<GroupActivity> Activities { get; set; }
     }
 }

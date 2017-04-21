@@ -8,7 +8,7 @@ using Fireteam.Data;
 namespace Fireteam.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
-    [Migration("20170418170802_InitialCreate")]
+    [Migration("20170421194416_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,8 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("AvailableSlots");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Description");
 
                     b.Property<string>("Duration");
@@ -33,17 +35,23 @@ namespace Fireteam.Migrations
 
                     b.Property<int?>("GroupID");
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<bool>("IsHidden");
 
                     b.Property<bool>("IsInviteOnly");
 
+                    b.Property<DateTime?>("LastModified");
+
                     b.Property<string>("Requirements");
+
+                    b.Property<int>("ReservedSlots");
 
                     b.Property<DateTime>("StartTime");
 
                     b.Property<string>("TimeZone");
 
-                    b.Property<int>("UserId");
+                    b.Property<int>("UserID");
 
                     b.HasKey("ID");
 
@@ -53,7 +61,7 @@ namespace Fireteam.Migrations
 
                     b.HasIndex("GroupID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Activities");
                 });
@@ -63,7 +71,13 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("Name");
 
@@ -79,11 +93,19 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("ActivityID");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<bool>("HasBeenBooted");
+
+                    b.Property<bool>("IsAlternate");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsTentative");
 
-                    b.Property<bool>("ReasonForBoot");
+                    b.Property<DateTime?>("LastModified");
+
+                    b.Property<int>("ReasonForBoot");
 
                     b.Property<int>("UserID");
 
@@ -107,6 +129,12 @@ namespace Fireteam.Migrations
 
                     b.Property<int?>("BlockingUserID");
 
+                    b.Property<DateTime>("Created");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
+
                     b.Property<int>("UserID");
 
                     b.HasKey("ID");
@@ -127,7 +155,13 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("GameTypeID");
+                    b.Property<DateTime>("Created");
+
+                    b.Property<int?>("GameID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("Manufacturer");
 
@@ -135,7 +169,7 @@ namespace Fireteam.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("GameTypeID");
+                    b.HasIndex("GameID");
 
                     b.ToTable("ConsoleModels");
                 });
@@ -145,9 +179,17 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Description");
 
                     b.Property<int>("GameTypeID");
+
+                    b.Property<bool>("IsConsoleGame");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("Publisher");
 
@@ -160,12 +202,36 @@ namespace Fireteam.Migrations
                     b.ToTable("Games");
                 });
 
+            modelBuilder.Entity("Fireteam.Models.GameConsoleModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConsoleModelID");
+
+                    b.Property<int>("GameID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ConsoleModelID");
+
+                    b.HasIndex("GameID");
+
+                    b.ToTable("GameConsoleModels");
+                });
+
             modelBuilder.Entity("Fireteam.Models.GamePlatform", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<int>("GameID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<int>("PlatformID");
 
@@ -183,9 +249,13 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Description");
 
-                    b.Property<bool>("IsConsoleGame");
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("Name");
 
@@ -199,13 +269,19 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Description");
 
                     b.Property<int>("GroupTypeID");
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<bool>("IsHidden");
 
                     b.Property<bool>("IsInviteOnly");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("Name");
 
@@ -216,70 +292,18 @@ namespace Fireteam.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("Fireteam.Models.GroupActivity", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ActivityID");
-
-                    b.Property<int>("GroupID");
-
-                    b.Property<int?>("GroupID1");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ActivityID");
-
-                    b.HasIndex("GroupID");
-
-                    b.HasIndex("GroupID1");
-
-                    b.ToTable("GroupActivities");
-                });
-
-            modelBuilder.Entity("Fireteam.Models.GroupGame", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("GameID");
-
-                    b.Property<int>("GroupID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("GameID");
-
-                    b.HasIndex("GroupID");
-
-                    b.ToTable("GroupGames");
-                });
-
-            modelBuilder.Entity("Fireteam.Models.GroupPlatform", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("GroupID");
-
-                    b.Property<int>("PlatformID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("GroupID");
-
-                    b.HasIndex("PlatformID");
-
-                    b.ToTable("GroupPlatforms");
-                });
-
             modelBuilder.Entity("Fireteam.Models.GroupType", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("Name");
 
@@ -293,9 +317,15 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<int>("GroupID");
 
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<bool>("IsGroupLeadership");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<int>("UserID");
 
@@ -313,6 +343,12 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
+
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
@@ -327,15 +363,25 @@ namespace Fireteam.Migrations
 
                     b.Property<int?>("ConsoleModelID");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<string>("GamerTag");
 
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
+
                     b.Property<int>("PlatformID");
+
+                    b.Property<int>("UserID");
 
                     b.HasKey("ID");
 
                     b.HasIndex("ConsoleModelID");
 
                     b.HasIndex("PlatformID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("PlatformAccounts");
                 });
@@ -345,11 +391,21 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Birthday");
+
                     b.Property<bool>("CanShowInSearches");
+
+                    b.Property<DateTime>("Created");
 
                     b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<string>("LastName");
 
@@ -366,24 +422,6 @@ namespace Fireteam.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Fireteam.Models.UserActivity", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ActivityID");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ActivityID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("UserActivities");
-                });
-
             modelBuilder.Entity("Fireteam.Models.UserFriend", b =>
                 {
                     b.Property<int>("ID")
@@ -391,7 +429,13 @@ namespace Fireteam.Migrations
 
                     b.Property<bool>("CanAddToActivities");
 
-                    b.Property<int?>("FriendID");
+                    b.Property<DateTime>("Created");
+
+                    b.Property<int>("FriendID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<int>("UserID");
 
@@ -409,7 +453,13 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<int>("GameID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<int>("UserID");
 
@@ -427,7 +477,13 @@ namespace Fireteam.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<int>("GroupID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.Property<int>("UserID");
 
@@ -438,42 +494,6 @@ namespace Fireteam.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("UserGroups");
-                });
-
-            modelBuilder.Entity("Fireteam.Models.UserPlatform", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("PlatformID");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PlatformID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("UserPlatforms");
-                });
-
-            modelBuilder.Entity("Fireteam.Models.UserPlatformAccount", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("PlatformAccountID");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PlatformAccountID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("UserPlatformAccounts");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Activity", b =>
@@ -492,9 +512,9 @@ namespace Fireteam.Migrations
                         .WithMany()
                         .HasForeignKey("GroupID");
 
-                    b.HasOne("Fireteam.Models.User", "User")
+                    b.HasOne("Fireteam.Models.User", "Organizer")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -525,7 +545,7 @@ namespace Fireteam.Migrations
                         .WithMany()
                         .HasForeignKey("BlockingUserID");
 
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.User", "UserBeingBlocked")
                         .WithMany("BlockedUsers")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -533,9 +553,9 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.ConsoleModel", b =>
                 {
-                    b.HasOne("Fireteam.Models.GameType")
+                    b.HasOne("Fireteam.Models.Game")
                         .WithMany("ConsoleModels")
-                        .HasForeignKey("GameTypeID");
+                        .HasForeignKey("GameID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Game", b =>
@@ -543,6 +563,19 @@ namespace Fireteam.Migrations
                     b.HasOne("Fireteam.Models.GameType", "GameType")
                         .WithMany()
                         .HasForeignKey("GameTypeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Fireteam.Models.GameConsoleModel", b =>
+                {
+                    b.HasOne("Fireteam.Models.ConsoleModel", "ConsoleModel")
+                        .WithMany()
+                        .HasForeignKey("ConsoleModelID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -564,49 +597,6 @@ namespace Fireteam.Migrations
                     b.HasOne("Fireteam.Models.GroupType", "GroupType")
                         .WithMany()
                         .HasForeignKey("GroupTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Fireteam.Models.GroupActivity", b =>
-                {
-                    b.HasOne("Fireteam.Models.Activity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.Group")
-                        .WithMany("Activities")
-                        .HasForeignKey("GroupID1");
-                });
-
-            modelBuilder.Entity("Fireteam.Models.GroupGame", b =>
-                {
-                    b.HasOne("Fireteam.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.Group", "Group")
-                        .WithMany("Games")
-                        .HasForeignKey("GroupID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Fireteam.Models.GroupPlatform", b =>
-                {
-                    b.HasOne("Fireteam.Models.Group", "Group")
-                        .WithMany("Platforms")
-                        .HasForeignKey("GroupID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -633,17 +623,9 @@ namespace Fireteam.Migrations
                         .WithMany()
                         .HasForeignKey("PlatformID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Fireteam.Models.UserActivity", b =>
-                {
-                    b.HasOne("Fireteam.Models.Activity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityID")
-                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Fireteam.Models.User", "User")
-                        .WithMany("Activities")
+                        .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -652,13 +634,13 @@ namespace Fireteam.Migrations
                 {
                     b.HasOne("Fireteam.Models.User", "Friend")
                         .WithMany()
-                        .HasForeignKey("FriendID");
+                        .HasForeignKey("FriendID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Fireteam.Models.User")
+                    b.HasOne("Fireteam.Models.User", "FriendedUser")
                         .WithMany("Friends")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
-
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserGame", b =>
@@ -683,32 +665,6 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Groups")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Fireteam.Models.UserPlatform", b =>
-                {
-                    b.HasOne("Fireteam.Models.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.User", "User")
-                        .WithMany("Platforms")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Fireteam.Models.UserPlatformAccount", b =>
-                {
-                    b.HasOne("Fireteam.Models.PlatformAccount", "PlatformAccount")
-                        .WithMany()
-                        .HasForeignKey("PlatformAccountID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Fireteam.Models.User", "User")
-                        .WithMany("PlatformAccounts")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

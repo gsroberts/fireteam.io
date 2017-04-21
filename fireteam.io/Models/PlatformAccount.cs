@@ -1,4 +1,6 @@
-﻿namespace Fireteam.Models
+﻿using System;
+
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represents a user's account for a specific platform
@@ -35,5 +37,15 @@
         /// Gets or sets the console model for this account, if provided
         /// </summary>
         public virtual ConsoleModel ConsoleModel { get; set; }
+
+        public int UserID { get; set; }
+
+        public virtual User User { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

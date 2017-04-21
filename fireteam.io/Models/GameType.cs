@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Fireteam.Models
 {
@@ -21,15 +22,10 @@ namespace Fireteam.Models
         /// </summary>
         public string Description { get; set; }
 
-        /// <summary>
-        /// Gets or sets a boolean flag that represents whether or 
-        /// not this game is a console game
-        /// </summary>
-        public bool IsConsoleGame { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the console model for this game if applicable
-        /// </summary>
-        public ICollection<ConsoleModel> ConsoleModels { get; set; }
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -12,5 +12,10 @@ namespace Fireteam.Models
         public virtual Group Group { get; set; }
         public int PlatformID { get; set; }
         public virtual Platform Platform { get; set; }
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Fireteam.Models
+﻿using System;
+
+namespace Fireteam.Models
 {
     /// <summary>
     /// Represnts a group's type
@@ -18,5 +20,10 @@
         /// Gets or sets a description for this group type
         /// </summary>
         public string Description { get; set; }
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

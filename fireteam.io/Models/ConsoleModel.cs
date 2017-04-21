@@ -1,4 +1,5 @@
-﻿using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
+﻿using System;
+using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
 namespace Fireteam.Models
 {
@@ -23,5 +24,11 @@ namespace Fireteam.Models
         /// e.g., Sony, Microsoft, Ninetendo
         /// </summary>
         public string Manufacturer { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

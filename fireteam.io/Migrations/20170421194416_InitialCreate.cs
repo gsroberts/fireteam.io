@@ -14,7 +14,10 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -28,8 +31,10 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    IsConsoleGame = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -43,7 +48,10 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -57,6 +65,9 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -70,9 +81,14 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Birthday = table.Column<DateTime>(nullable: false),
                     CanShowInSearches = table.Column<bool>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
+                    Gender = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     Salt = table.Column<string>(nullable: true),
@@ -85,34 +101,17 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ConsoleModels",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    GameTypeID = table.Column<int>(nullable: true),
-                    Manufacturer = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ConsoleModels", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_ConsoleModels_GameTypes_GameTypeID",
-                        column: x => x.GameTypeID,
-                        principalTable: "GameTypes",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Games",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     GameTypeID = table.Column<int>(nullable: false),
+                    IsConsoleGame = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Publisher = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true)
                 },
@@ -133,10 +132,13 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     GroupTypeID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     IsHidden = table.Column<bool>(nullable: false),
                     IsInviteOnly = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -157,7 +159,10 @@ namespace Fireteam.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     CanAddToActivities = table.Column<bool>(nullable: false),
-                    FriendID = table.Column<int>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    FriendID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -168,7 +173,7 @@ namespace Fireteam.Migrations
                         column: x => x.FriendID,
                         principalTable: "Users",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserFriends_Users_UserID",
                         column: x => x.UserID,
@@ -178,56 +183,27 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserPlatforms",
+                name: "ConsoleModels",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    PlatformID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
+                    Created = table.Column<DateTime>(nullable: false),
+                    GameID = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
+                    Manufacturer = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPlatforms", x => x.ID);
+                    table.PrimaryKey("PK_ConsoleModels", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_UserPlatforms_Platforms_PlatformID",
-                        column: x => x.PlatformID,
-                        principalTable: "Platforms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserPlatforms_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlatformAccounts",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    ConsoleModelID = table.Column<int>(nullable: true),
-                    GamerTag = table.Column<string>(nullable: true),
-                    PlatformID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PlatformAccounts", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PlatformAccounts_ConsoleModels_ConsoleModelID",
-                        column: x => x.ConsoleModelID,
-                        principalTable: "ConsoleModels",
+                        name: "FK_ConsoleModels_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PlatformAccounts_Platforms_PlatformID",
-                        column: x => x.PlatformID,
-                        principalTable: "Platforms",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,7 +212,10 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     GameID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     PlatformID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -262,7 +241,10 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     GameID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -290,16 +272,20 @@ namespace Fireteam.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     ActivityTypeID = table.Column<int>(nullable: false),
                     AvailableSlots = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Duration = table.Column<string>(nullable: true),
                     GameID = table.Column<int>(nullable: false),
                     GroupID = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     IsHidden = table.Column<bool>(nullable: false),
                     IsInviteOnly = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     Requirements = table.Column<string>(nullable: true),
+                    ReservedSlots = table.Column<int>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     TimeZone = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -323,61 +309,9 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Activities_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Activities_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GroupGames",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    GameID = table.Column<int>(nullable: false),
-                    GroupID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupGames", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_GroupGames_Games_GameID",
-                        column: x => x.GameID,
-                        principalTable: "Games",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GroupGames_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GroupPlatforms",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    GroupID = table.Column<int>(nullable: false),
-                    PlatformID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupPlatforms", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_GroupPlatforms_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GroupPlatforms_Platforms_PlatformID",
-                        column: x => x.PlatformID,
-                        principalTable: "Platforms",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -388,8 +322,11 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     GroupID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     IsGroupLeadership = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -415,7 +352,10 @@ namespace Fireteam.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
                     GroupID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -436,25 +376,62 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserPlatformAccounts",
+                name: "GameConsoleModels",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    PlatformAccountID = table.Column<int>(nullable: false),
+                    ConsoleModelID = table.Column<int>(nullable: false),
+                    GameID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameConsoleModels", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GameConsoleModels_ConsoleModels_ConsoleModelID",
+                        column: x => x.ConsoleModelID,
+                        principalTable: "ConsoleModels",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GameConsoleModels_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlatformAccounts",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ConsoleModelID = table.Column<int>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    GamerTag = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
+                    PlatformID = table.Column<int>(nullable: false),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPlatformAccounts", x => x.ID);
+                    table.PrimaryKey("PK_PlatformAccounts", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_UserPlatformAccounts_PlatformAccounts_PlatformAccountID",
-                        column: x => x.PlatformAccountID,
-                        principalTable: "PlatformAccounts",
+                        name: "FK_PlatformAccounts_ConsoleModels_ConsoleModelID",
+                        column: x => x.ConsoleModelID,
+                        principalTable: "ConsoleModels",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PlatformAccounts_Platforms_PlatformID",
+                        column: x => x.PlatformID,
+                        principalTable: "Platforms",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserPlatformAccounts_Users_UserID",
+                        name: "FK_PlatformAccounts_Users_UserID",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
@@ -468,9 +445,13 @@ namespace Fireteam.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     ActivityID = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
                     HasBeenBooted = table.Column<bool>(nullable: false),
+                    IsAlternate = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     IsTentative = table.Column<bool>(nullable: false),
-                    ReasonForBoot = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
+                    ReasonForBoot = table.Column<int>(nullable: false),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -499,6 +480,9 @@ namespace Fireteam.Migrations
                     ActivityID = table.Column<int>(nullable: true),
                     BlockingGroupID = table.Column<int>(nullable: true),
                     BlockingUserID = table.Column<int>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -530,65 +514,6 @@ namespace Fireteam.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "GroupActivities",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    ActivityID = table.Column<int>(nullable: false),
-                    GroupID = table.Column<int>(nullable: false),
-                    GroupID1 = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GroupActivities", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_GroupActivities_Activities_ActivityID",
-                        column: x => x.ActivityID,
-                        principalTable: "Activities",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GroupActivities_Groups_GroupID",
-                        column: x => x.GroupID,
-                        principalTable: "Groups",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GroupActivities_Groups_GroupID1",
-                        column: x => x.GroupID1,
-                        principalTable: "Groups",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserActivities",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    ActivityID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserActivities", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_UserActivities_Activities_ActivityID",
-                        column: x => x.ActivityID,
-                        principalTable: "Activities",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserActivities_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_ActivityTypeID",
                 table: "Activities",
@@ -605,9 +530,9 @@ namespace Fireteam.Migrations
                 column: "GroupID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Activities_UserId",
+                name: "IX_Activities_UserID",
                 table: "Activities",
-                column: "UserId");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityUsers_ActivityID",
@@ -640,14 +565,24 @@ namespace Fireteam.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsoleModels_GameTypeID",
+                name: "IX_ConsoleModels_GameID",
                 table: "ConsoleModels",
-                column: "GameTypeID");
+                column: "GameID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_GameTypeID",
                 table: "Games",
                 column: "GameTypeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameConsoleModels_ConsoleModelID",
+                table: "GameConsoleModels",
+                column: "ConsoleModelID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameConsoleModels_GameID",
+                table: "GameConsoleModels",
+                column: "GameID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GamePlatforms_GameID",
@@ -663,41 +598,6 @@ namespace Fireteam.Migrations
                 name: "IX_Groups_GroupTypeID",
                 table: "Groups",
                 column: "GroupTypeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupActivities_ActivityID",
-                table: "GroupActivities",
-                column: "ActivityID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupActivities_GroupID",
-                table: "GroupActivities",
-                column: "GroupID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupActivities_GroupID1",
-                table: "GroupActivities",
-                column: "GroupID1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupGames_GameID",
-                table: "GroupGames",
-                column: "GameID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupGames_GroupID",
-                table: "GroupGames",
-                column: "GroupID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupPlatforms_GroupID",
-                table: "GroupPlatforms",
-                column: "GroupID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupPlatforms_PlatformID",
-                table: "GroupPlatforms",
-                column: "PlatformID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupUsers_GroupID",
@@ -720,13 +620,8 @@ namespace Fireteam.Migrations
                 column: "PlatformID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserActivities_ActivityID",
-                table: "UserActivities",
-                column: "ActivityID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserActivities_UserID",
-                table: "UserActivities",
+                name: "IX_PlatformAccounts_UserID",
+                table: "PlatformAccounts",
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
@@ -758,26 +653,6 @@ namespace Fireteam.Migrations
                 name: "IX_UserGroups_UserID",
                 table: "UserGroups",
                 column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserPlatforms_PlatformID",
-                table: "UserPlatforms",
-                column: "PlatformID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserPlatforms_UserID",
-                table: "UserPlatforms",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserPlatformAccounts_PlatformAccountID",
-                table: "UserPlatformAccounts",
-                column: "PlatformAccountID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserPlatformAccounts_UserID",
-                table: "UserPlatformAccounts",
-                column: "UserID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -789,22 +664,16 @@ namespace Fireteam.Migrations
                 name: "BlockedUsers");
 
             migrationBuilder.DropTable(
+                name: "GameConsoleModels");
+
+            migrationBuilder.DropTable(
                 name: "GamePlatforms");
-
-            migrationBuilder.DropTable(
-                name: "GroupActivities");
-
-            migrationBuilder.DropTable(
-                name: "GroupGames");
-
-            migrationBuilder.DropTable(
-                name: "GroupPlatforms");
 
             migrationBuilder.DropTable(
                 name: "GroupUsers");
 
             migrationBuilder.DropTable(
-                name: "UserActivities");
+                name: "PlatformAccounts");
 
             migrationBuilder.DropTable(
                 name: "UserFriends");
@@ -816,22 +685,16 @@ namespace Fireteam.Migrations
                 name: "UserGroups");
 
             migrationBuilder.DropTable(
-                name: "UserPlatforms");
-
-            migrationBuilder.DropTable(
-                name: "UserPlatformAccounts");
-
-            migrationBuilder.DropTable(
                 name: "Activities");
 
             migrationBuilder.DropTable(
-                name: "PlatformAccounts");
+                name: "ConsoleModels");
+
+            migrationBuilder.DropTable(
+                name: "Platforms");
 
             migrationBuilder.DropTable(
                 name: "ActivityTypes");
-
-            migrationBuilder.DropTable(
-                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "Groups");
@@ -840,10 +703,7 @@ namespace Fireteam.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "ConsoleModels");
-
-            migrationBuilder.DropTable(
-                name: "Platforms");
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "GroupTypes");

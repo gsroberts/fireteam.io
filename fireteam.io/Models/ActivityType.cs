@@ -1,4 +1,5 @@
-﻿using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
+﻿using System;
+using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
 namespace Fireteam.Models
 {
@@ -20,5 +21,11 @@ namespace Fireteam.Models
         /// Gets or sets the description for this activity type
         /// </summary>
         public string Description { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
