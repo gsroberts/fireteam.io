@@ -3,13 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MySQL.Data.EntityFrameworkCore.Extensions;
+using Fireteam.Data;
 
-namespace fireteam.io.Controllers
+namespace Fireteam.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly FireteamDbContext _context;
+
+        public HomeController(FireteamDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
+            int currentTotalUsers = 0;
+
+            var totalUsers = _context.Users;
+            if (totalUsers != null)
+            {
+                currentTotalUsers = totalUsers.Count();
+            }
+
             return View();
         }
 
