@@ -208,7 +208,13 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("ConsoleModelID");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<int>("GameID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.HasKey("ID");
 

@@ -18,5 +18,11 @@ namespace Fireteam.Models
 
         [ForeignKey("ConsoleModelID")]
         public ConsoleModel ConsoleModel { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime? LastModified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

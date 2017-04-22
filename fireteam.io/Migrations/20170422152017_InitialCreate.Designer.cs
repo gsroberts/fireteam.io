@@ -8,7 +8,7 @@ using Fireteam.Data;
 namespace Fireteam.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
-    [Migration("20170421194416_InitialCreate")]
+    [Migration("20170422152017_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -209,7 +209,13 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("ConsoleModelID");
 
+                    b.Property<DateTime>("Created");
+
                     b.Property<int>("GameID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
 
                     b.HasKey("ID");
 

@@ -654,9 +654,9 @@ namespace Fireteam.Data
 
             var gameConsoleModels = new GameConsoleModel[]
             {
-                new GameConsoleModel() { ID = 1, GameID = 1, ConsoleModelID  = 1 },
-                new GameConsoleModel() { ID = 2, GameID = 1, ConsoleModelID  = 2 },
-                new GameConsoleModel() { ID = 3, GameID = 1, ConsoleModelID  = 4 }
+                new GameConsoleModel() { ID = 1, GameID = 1, ConsoleModelID  = 1, Created = DateTime.Now, IsDeleted = false},
+                new GameConsoleModel() { ID = 2, GameID = 1, ConsoleModelID  = 2, Created = DateTime.Now, IsDeleted = false },
+                new GameConsoleModel() { ID = 3, GameID = 1, ConsoleModelID  = 4, Created = DateTime.Now, IsDeleted = false }
             };
 
             foreach (var gameConsoleModel in gameConsoleModels)

@@ -382,7 +382,10 @@ namespace Fireteam.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     ConsoleModelID = table.Column<int>(nullable: false),
-                    GameID = table.Column<int>(nullable: false)
+                    Created = table.Column<DateTime>(nullable: false),
+                    GameID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
