@@ -11,55 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\bootstrap.min.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\css\demo.css" />
     <Content Include="wwwroot\css\material-dashboard.css" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\css\material-dashboard.css" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\apple-icon.png" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\cover.jpeg" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\favicon.png" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\mask.png" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\new_logo.png" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\sidebar-1.jpg" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\sidebar-2.jpg" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\sidebar-3.jpg" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\sidebar-4.jpg" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\img\tim_80x80.png" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\js\bootstrap-notify.js" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\js\chartist.min.js" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\js\material-dashboard.js" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\js\material.min.js" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\material-dashboard.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\mixins\_chartist.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\mixins\_transparency.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\mixins\_vendor-prefixes.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\plugins\_animate.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\plugins\_plugin-nouislider.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_alerts.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_buttons.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_cards.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_chartist.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_checkboxes.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_colors.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_dialogs.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_dropdown.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_footers.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_forms.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_inputs-size.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_inputs.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_misc.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_mixins.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_navbars.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_pills.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_popups.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_radios.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_responsive.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_ripples.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_shadows.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_sidebar-and-main-panel.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_tables.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_tabs.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_togglebutton.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_typography.scss" />
-    <Content Include="wwwroot\lib\material-dashboard\assets\sass\md\_variables.scss" />
     <Content Include="wwwroot\lib\material-dashboard\LICENSE.md" />
     <Content Include="wwwroot\lib\material-dashboard\README.md" />
   </ItemGroup>
