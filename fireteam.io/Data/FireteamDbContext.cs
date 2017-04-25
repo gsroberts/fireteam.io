@@ -148,5 +148,7 @@ namespace Fireteam.Data
             modelBuilder.Entity<GameConsoleModel>()
                 .HasKey(u => u.ID);
         }
+
+        public DbSet<Fireteam.Models.GroupPlatform> GroupPlatform { get; set; }
     }
 }
