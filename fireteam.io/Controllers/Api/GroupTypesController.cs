@@ -11,7 +11,7 @@ using Fireteam.Models;
 namespace fireteam.io.Controllers.Api
 {
     [Produces("application/json")]
-    [Route("api/GroupTypes")]
+    [Route("api/group-types")]
     public class GroupTypesController : Controller
     {
         private readonly FireteamDbContext _context;

@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Fireteam.Data;
 using Fireteam.Models;
 
-namespace fireteam.io.Controllers.Api._public.v1
+namespace Fireteam.Controllers.Api._public.v1
 {
     [Produces("application/json")]
-    [Route("api/public/Activities")]
+    [Route("api/public/activities")]
     public class ActivitiesController : Controller
     {
         private readonly FireteamDbContext _context;

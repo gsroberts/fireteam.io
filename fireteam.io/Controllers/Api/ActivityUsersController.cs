@@ -11,7 +11,7 @@ using Fireteam.Models;
 namespace fireteam.io.Controllers.Api
 {
     [Produces("application/json")]
-    [Route("api/ActivityUsers")]
+    [Route("api/activity-users")]
     public class ActivityUsersController : Controller
     {
         private readonly FireteamDbContext _context;

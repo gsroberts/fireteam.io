@@ -21,6 +21,8 @@ namespace Fireteam.Controllers
 
         public IActionResult Index()
         {
+            ViewData["Message"] = "Fireteam.io Home";
+
             int currentTotalUsers = 0;
 
             var totalUsers = _context.Users;

@@ -11,7 +11,7 @@ using Fireteam.Models;
 namespace fireteam.io.Controllers.Api
 {
     [Produces("application/json")]
-    [Route("api/GameConsoleModels")]
+    [Route("api/game-console-models")]
     public class GameConsoleModelsController : Controller
     {
         private readonly FireteamDbContext _context;

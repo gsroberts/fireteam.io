@@ -11,7 +11,7 @@ using Fireteam.Models;
 namespace fireteam.io.Controllers.Api
 {
     [Produces("application/json")]
-    [Route("api/BlockedUsers")]
+    [Route("api/blocked-users")]
     public class BlockedUsersController : Controller
     {
         private readonly FireteamDbContext _context;
