@@ -1,0 +1,81 @@
+@model Fireteam.Models.Group
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+    
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">dashboard</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">View Group -
+                    <small class="category"></small>
+                </h4>
+
+                <div>
+                    <h4>Group</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Name)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Name)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Description)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.IsHidden)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.IsHidden)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.IsInviteOnly)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.IsInviteOnly)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Created)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Created)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.LastModified)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.LastModified)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.IsDeleted)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.IsDeleted)
+                                    </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.GroupType)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.GroupType.ID)
+                                </dd>
+    </dl>
+                </div>
+                <div>
+                            <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+                            <a asp-action="Index">Back to List</a>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+

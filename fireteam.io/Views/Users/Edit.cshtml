@@ -1,0 +1,132 @@
+@model Fireteam.Models.User
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+    <div class="row">
+    <div class="col-md-8">
+    <div class="card">
+    <div class="card-header card-header-icon" data-background-color="rose">
+    <i class="material-icons">dashboard</i>
+    </div>
+    <div class="card-content">
+    <h4 class="card-title">Edit User -
+    <small class="category"></small>
+    </h4>
+    <form asp-action="Edit">
+    <div class="form-horizontal">
+    <h4>User</h4>
+    <hr />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+                <div class="form-group">
+                <label asp-for="UserName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="Email" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="Password" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="Salt" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="Salt" class="form-control" />
+                <span asp-validation-for="Salt" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="FirstName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="LastName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="Birthday" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="Birthday" class="form-control" />
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="Gender" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="TimeZone" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="TimeZone" class="form-control" />
+                <span asp-validation-for="TimeZone" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                <input asp-for="CanShowInSearches" />
+                <label asp-for="CanShowInSearches"></label>
+                </div>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="Created" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="Created" class="form-control" />
+                <span asp-validation-for="Created" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label asp-for="LastModified" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                <input asp-for="LastModified" class="form-control" />
+                <span asp-validation-for="LastModified" class="text-danger"></span>
+                </div>
+                </div>
+                <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                <input asp-for="IsDeleted" />
+                <label asp-for="IsDeleted"></label>
+                </div>
+                </div>
+                </div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>
+</div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+    
+</div>
+</div>
+</div>
+</div>
+

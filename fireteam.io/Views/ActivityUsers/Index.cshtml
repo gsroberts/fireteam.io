@@ -1,0 +1,82 @@
+@using Fireteam.Common.Helpers
+@model IEnumerable<Fireteam.Models.ActivityUser>
+
+@{
+    ViewData["Title"] = "Activities List";
+}
+<link rel="stylesheet" lang="text/css" href="css/activity-user.css"/>
+
+<h2>@(ViewData["UserID"] != null ? "My Activities" : "Activities")</h2>
+
+<div class="container">
+
+    <button id="create-button" class="btn btn-primary btn-round" asp-action="Create New">
+        <i class="material-icons">add</i> Create New
+    </button>
+
+    <div class="form">
+        @{
+            foreach (var item in Model)
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header" data-background-color="orange">
+                                <h4 class="card-title">
+                                    @{
+                                        <span>@(item.Activity.ActivityType.Name + " - " + DateTimeConverter.GetLocalTime(item.Activity.StartTime, item.Activity.TimeZone))</span>
+                                    }
+                                </h4>
+                                <p class="category" title="@(item.Activity.Participants.Count + item.Activity.ReservedSlots) total participants including alternates and reserved slots">@(item.Activity.AvailableSlots) Total Slots / @(item.Activity.OpenSlots) Open Slots</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">
+                                            Description
+                                        </label>
+                                        <textarea class="form-control" name="description" rows="2" disabled>@Html.DisplayFor(modelItem => item.Activity.Description)</textarea>
+                                    </div>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">
+                                            Requirements
+                                        </label>
+                                        <textarea class="form-control" name="requirements" rows="2" disabled>@Html.DisplayFor(modelItem => item.Activity.Requirements)</textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="checkbox col-md-2">
+                                        <label>
+                                            <input type="checkbox" name="isTentative" checked="@item.IsTentative">
+                                            Tentative?
+                                        </label>
+                                    </div>
+                                    <div class="checkbox col-md-2">
+                                        <label>
+                                            <input type="checkbox" name="isAlternate" checked="@item.IsAlternate">
+                                            Alternate?
+                                        </label>
+                                    </div>
+                                    <div class="checkbox col-md-2">
+                                        <label>
+                                            <input type="checkbox" name="isAlternate" checked="@item.HasBeenBooted">
+                                            Booted?
+                                        </label>
+                                    </div>
+                                    <div class="form-actions pull right">
+                                        <button id="edit-button" class="btn btn-info" data-item-id="@item.ID">EDIT</button>
+                                        <button id="view-button" class="btn btn-primary" data-item-id="@item.ID">DETAILS</button>
+                                        <button id="delete-button" class="btn btn-danger" data-item-id="@item.ID">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/activity-users.js"></script>

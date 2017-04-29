@@ -123,5 +123,8 @@ namespace Fireteam.Models
         /// activity
         /// </summary>
         public virtual ICollection<ActivityUser> Participants { get; set; }
+
+        [NotMapped]
+        public int OpenSlots => this.AvailableSlots - (this.Participants.Count + this.ReservedSlots);
     }
 }

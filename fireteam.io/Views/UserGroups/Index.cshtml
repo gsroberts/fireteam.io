@@ -1,0 +1,71 @@
+@model IEnumerable<Fireteam.Models.UserGroup>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="row">
+    <div class="col-md-8">
+    <div class="card">
+    <div class="card-header card-header-icon" data-background-color="rose">
+        <i class="material-icons">dashboard</i>
+    </div>
+    <div class="card-content">
+    <h4 class="card-title">List UserGroup -
+        <small class="category"></small>
+    </h4>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+    <table class="table">
+    <thead>
+    <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastModified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Group)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+    <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Group.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.ID)
+        </td>
+        <td>
+        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+        </td>
+    </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
