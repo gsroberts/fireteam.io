@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fireteam.io", "fireteam.io\fireteam.io.csproj", "{AE30313F-DBE3-4255-9352-91CBB68071D0}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fireteam.Common", "fireteam.common\Fireteam.Common.csproj", "{6F981C6D-B38D-4C6F-8763-F588B46C3D13}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB Scripts", "DB Scripts", "{5A8BB2FC-0C1A-4300-8849-68E2D291AA32}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{462F3DE2-B2E7-4E56-96B3-F706DA24591D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{6F981C6D-B38D-4C6F-8763-F588B46C3D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F981C6D-B38D-4C6F-8763-F588B46C3D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F981C6D-B38D-4C6F-8763-F588B46C3D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{462F3DE2-B2E7-4E56-96B3-F706DA24591D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{462F3DE2-B2E7-4E56-96B3-F706DA24591D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{462F3DE2-B2E7-4E56-96B3-F706DA24591D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{462F3DE2-B2E7-4E56-96B3-F706DA24591D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
