@@ -126,5 +126,57 @@ namespace Fireteam.Models
 
         [NotMapped]
         public int OpenSlots => this.AvailableSlots - (this.Participants.Count + this.ReservedSlots);
+
+        [NotMapped]
+        public int TakenSlots => this.Participants.Count + this.ReservedSlots;
+
+        [NotMapped]
+        public string DurationAsString
+        {
+            get
+            {
+                var duration = TimeSpan.Parse(this.Duration);
+
+                var result = new StringBuilder();
+
+                if (duration.Days != 0)
+                {
+                    result.AppendFormat((duration.Days > 1) ? "{0} days" : "{0} day", duration.Days);
+                }
+
+                if (duration.Hours != 0)
+                {
+                    if (result.Length > 0)
+                    {
+                        result.Append(", ");
+                    }
+
+                    result.AppendFormat((duration.Hours > 1) ? "{0} hours" : "{0} hour", duration.Hours);
+                }
+
+                if (duration.Minutes != 0 && duration.Minutes > 1)
+                {
+                    if (result.Length > 0)
+                    {
+                        result.Append(", ");
+                    }
+
+                    result.AppendFormat((duration.Minutes > 1) ? "{0} minutes" : "{0} minute", duration.Minutes);
+                }
+
+                return result.ToString();
+            }
+        }
+
+        [NotMapped]
+        public DateTime EndTime
+        {
+            get
+            {
+                var duration = TimeSpan.Parse(this.Duration);
+                var startTime = this.StartTime;
+                return startTime.AddDays(duration.Days).AddHours(duration.Hours).AddMinutes(duration.Minutes);
+            }
+        }
     }
 }

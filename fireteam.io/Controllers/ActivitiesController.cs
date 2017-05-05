@@ -22,7 +22,13 @@ namespace fireteam.io.Controllers
         // GET: Activities
         public async Task<IActionResult> Index()
         {
-            var fireteamDbContext = _context.Activities.Include(a => a.ActivityType).Include(a => a.Game).Include(a => a.Group).Include(a => a.Organizer);
+            var fireteamDbContext = _context.Activities
+                                                .Include(a => a.ActivityType)
+                                                .Include(a => a.Game)
+                                                .Include(a => a.Group)
+                                                .Include(a => a.Organizer)
+                                                .Include(a => a.Participants);
+
             return View(await fireteamDbContext.ToListAsync());
         }
 

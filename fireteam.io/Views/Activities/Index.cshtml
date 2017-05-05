@@ -1,137 +1,76 @@
+@using Fireteam.Common.Helpers
 @model IEnumerable<Fireteam.Models.Activity>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Activities List";
 }
 
-    <div class="row">
-    <div class="col-md-8">
-    <div class="card">
-    <div class="card-header card-header-icon" data-background-color="rose">
-        <i class="material-icons">dashboard</i>
+<link rel="stylesheet" lang="text/css" href="~/css/activities.css" />
+
+<h2>Activities</h2>
+
+<div class="container-fluid">
+
+    <button id="create-button" class="btn btn-primary btn-round" asp-action="Create New">
+        <i class="material-icons">add</i> Create New
+    </button>
+
+    <div class="form">
+        @{
+            foreach (var item in Model)
+            {
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-header" data-background-color="purple">
+                                <h4 class="card-title">
+                                    @{
+                                        <span>@Html.DisplayFor(modelItem => item.Description)</span><br />
+                                        <span>@(DateTimeConverter.GetLocalTime(item.StartTime, item.TimeZone).ToString("M/dd/yy h:mm tt") + " to " + DateTimeConverter.GetLocalTime(item.EndTime, item.TimeZone).ToString("M/dd/yy h:mm tt"))</span>
+                                    }
+                                </h4>
+                                <p class="category" title="@item.TakenSlots total participants including alternates and reserved slots">@(item.AvailableSlots) Total Slots / @(item.OpenSlots) Open Slots</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="row">
+                                    <label>Organizer: <button class="btn btn-primary btn-simple">@item.Organizer.UserName</button></label><br />
+                                    <label>
+                                        Tags:
+                                        <button class="btn btn-primary btn-simple">@item.Game.Title</button>
+                                        <button class="btn btn-primary btn-simple">@item.ActivityType.Name</button>
+                                        <button class="btn btn-primary btn-simple">@((item.Group != null) ? item.Group.Name : "No Group")</button><br />
+                                        <label>
+                                            Duration: @item.DurationAsString
+                                        </label>
+                                    </label>
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">
+                                            Requirements
+                                        </label>
+                                        <textarea class="form-control" name="requirements" rows="2" disabled>@Html.DisplayFor(modelItem => item.Requirements)</textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="isInviteOnly" checked="@item.IsInviteOnly" disabled="disabled">
+                                            Invite Only?
+                                        </label>
+                                    </div>
+                                    <div class="form-actions pull right">
+                                        <button id="edit-button" class="btn btn-info" data-item-id="@item.ID">EDIT</button>
+                                        <button id="view-button" class="btn btn-primary" data-item-id="@item.ID">DETAILS</button>
+                                        <button id="delete-button" class="btn btn-danger" data-item-id="@item.ID">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                        }
+        }
     </div>
-    <div class="card-content">
-    <h4 class="card-title">List Activity -
-        <small class="category"></small>
-    </h4>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-    <table class="table">
-    <thead>
-    <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailableSlots)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReservedSlots)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeZone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsHidden)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsInviteOnly)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Requirements)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastModified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Game)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Group)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Organizer)
-        </th>
-    <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
-    <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AvailableSlots)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservedSlots)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeZone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsHidden)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsInviteOnly)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Requirements)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModified)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActivityType.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Game.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Group.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Organizer.ID)
-        </td>
-        <td>
-        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-        </td>
-    </tr>
-    }
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
-    </div>
+</div>
+
+<script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/activity-users.js"></script>
