@@ -29,6 +29,7 @@ namespace Fireteam.Data
         public DbSet<UserFriend> UserFriends { get; set; }
         public DbSet<UserGame> UserGames { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<GroupPlatform> GroupPlatform { get; set; }
 
         public FireteamDbContext(DbContextOptions<FireteamDbContext> options)
             : base(options)
@@ -37,6 +38,8 @@ namespace Fireteam.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);
             modelBuilder.Entity<User>()
@@ -148,7 +151,5 @@ namespace Fireteam.Data
             modelBuilder.Entity<GameConsoleModel>()
                 .HasKey(u => u.ID);
         }
-
-        public DbSet<Fireteam.Models.GroupPlatform> GroupPlatform { get; set; }
     }
 }

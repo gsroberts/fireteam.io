@@ -11,18 +11,6 @@ namespace Fireteam.Models
     /// </summary>
     public class User : IdentityUser
     {
-        //public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user's username for the fireteam.io service
-        /// </summary>
-        //public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets this user's email address
-        /// </summary>
-        //public string Email { get; set; }
-
         /// <summary>
         /// Gets or sets this users password
         /// 
