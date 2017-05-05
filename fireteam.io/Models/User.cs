@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Fireteam.Models
 {
     /// <summary>
     /// Represents a user of the fireteam.io service
     /// </summary>
-    public class User
+    public class User : IdentityUser
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
 
         /// <summary>
         /// Gets or sets the user's username for the fireteam.io service
         /// </summary>
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets this user's email address
         /// </summary>
-        public string Email { get; set; }
+        //public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets this users password

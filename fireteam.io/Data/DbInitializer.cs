@@ -21,7 +21,7 @@ namespace Fireteam.Data
             {
                 new User()
                 {
-                    ID = 1,
+                    Id = Guid.NewGuid().ToString(),
                     UserName = "leeeeroy",
                     FirstName = "Leroy",
                     LastName = "Jenkins",
@@ -36,7 +36,7 @@ namespace Fireteam.Data
                 },
                 new User()
                 {
-                    ID = 2,
+                    Id = Guid.NewGuid().ToString(),
                     UserName = "dmaul",
                     FirstName = "Darth",
                     LastName = "Maul",
@@ -51,7 +51,7 @@ namespace Fireteam.Data
                 },
                 new User()
                 {
-                    ID = 3,
+                    Id = Guid.NewGuid().ToString(),
                     UserName = "kbecks",
                     FirstName = "Kate",
                     LastName = "Beckinsale",

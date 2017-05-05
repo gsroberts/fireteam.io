@@ -38,7 +38,7 @@ namespace Fireteam.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasKey(u => u.ID);
+                .HasKey(u => u.Id);
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Groups);
             modelBuilder.Entity<User>()
