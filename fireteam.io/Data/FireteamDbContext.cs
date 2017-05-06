@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Fireteam.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using MySQL.Data.EntityFrameworkCore.Extensions;
@@ -9,9 +10,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Fireteam.Data
 {
-    public class FireteamDbContext : DbContext
+    //public class FireteamDbContext : DbContext
+    public class FireteamDbContext : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityUser> ActivityUsers { get; set; }

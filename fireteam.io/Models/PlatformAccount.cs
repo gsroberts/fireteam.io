@@ -38,7 +38,7 @@ namespace Fireteam.Models
         /// </summary>
         public virtual ConsoleModel ConsoleModel { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         public virtual User User { get; set; }
 

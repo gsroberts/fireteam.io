@@ -20,9 +20,9 @@ namespace Fireteam.Controllers
         }
 
         // GET: ActivityUsers
-        public async Task<IActionResult> Index(int? userId)
+        public async Task<IActionResult> Index(string userId)
         {
-            var activityUsers = (userId != null) ? _context.ActivityUsers
+            var activityUsers = (!string.IsNullOrWhiteSpace(userId)) ? _context.ActivityUsers
                                                                     .Where(a => a.UserID == userId)
                                                                     .Include(a => a.Activity)
                                                                         .ThenInclude(a => a.ActivityType)

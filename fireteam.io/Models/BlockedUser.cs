@@ -10,11 +10,11 @@ namespace Fireteam.Models
     {
         public int ID { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual User UserBeingBlocked { get; set; }
 
-        public int? BlockingUserID { get; set; }
+        public string BlockingUserID { get; set; }
         [ForeignKey("BlockingUserID")]
         public virtual User BlockingUser { get; set; }
 

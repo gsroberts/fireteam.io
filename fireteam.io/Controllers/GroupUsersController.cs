@@ -20,9 +20,9 @@ namespace Fireteam.Controllers
         }
 
         // GET: GroupUsers
-        public async Task<IActionResult> Index(int? userId)
+        public async Task<IActionResult> Index(string userId)
         {
-            var fireteamDbContext = (userId != null) ? _context.GroupUsers
+            var fireteamDbContext = (string.IsNullOrWhiteSpace(userId)) ? _context.GroupUsers
                                                                     .Where(g => g.UserID == userId)
                                                                     .Include(g => g.Group)
                                                                     .Include(g => g.User) : _context.GroupUsers

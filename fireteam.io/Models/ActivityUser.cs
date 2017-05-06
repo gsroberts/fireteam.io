@@ -11,7 +11,7 @@ namespace Fireteam.Models
         public int ID { get; set; }
         public int ActivityID { get; set; }
         public virtual Activity Activity { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public virtual User User { get; set; }
         public bool IsTentative { get; set; }
         public bool IsAlternate { get; set; }
