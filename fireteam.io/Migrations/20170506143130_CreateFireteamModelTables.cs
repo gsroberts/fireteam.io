@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Fireteam.Migrations
+namespace WebApplicationWithIdentity.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateFireteamModelTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,28 +76,67 @@ namespace Fireteam.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "AspNetUsers",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                    Id = table.Column<string>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
                     Birthday = table.Column<DateTime>(nullable: false),
                     CanShowInSearches = table.Column<bool>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Password = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     Salt = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
                     TimeZone = table.Column<string>(nullable: true),
-                    UserName = table.Column<string>(nullable: true)
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.ID);
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                 });
 
             migrationBuilder.CreateTable(
@@ -160,25 +199,111 @@ namespace Fireteam.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     CanAddToActivities = table.Column<bool>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    FriendID = table.Column<int>(nullable: false),
+                    FriendID = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserFriends", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_UserFriends_Users_FriendID",
+                        name: "FK_UserFriends_AspNetUsers_FriendID",
                         column: x => x.FriendID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true),
+                    RoleId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserFriends_Users_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -245,7 +370,7 @@ namespace Fireteam.Migrations
                     GameID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -257,11 +382,11 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserGames_Users_UserID",
+                        name: "FK_UserGames_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -285,7 +410,7 @@ namespace Fireteam.Migrations
                     ReservedSlots = table.Column<int>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     TimeZone = table.Column<string>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -309,9 +434,38 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Activities_Users_UserID",
+                        name: "FK_Activities_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GroupPlatform",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    GroupID = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: true),
+                    PlatformID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupPlatform", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GroupPlatform_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupPlatform_Platforms_PlatformID",
+                        column: x => x.PlatformID,
+                        principalTable: "Platforms",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -327,7 +481,7 @@ namespace Fireteam.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsGroupLeadership = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -339,11 +493,11 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GroupUsers_Users_UserID",
+                        name: "FK_GroupUsers_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -356,7 +510,7 @@ namespace Fireteam.Migrations
                     GroupID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -368,11 +522,11 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserGroups_Users_UserID",
+                        name: "FK_UserGroups_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -416,7 +570,7 @@ namespace Fireteam.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
                     PlatformID = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -434,11 +588,11 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlatformAccounts_Users_UserID",
+                        name: "FK_PlatformAccounts_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -455,7 +609,7 @@ namespace Fireteam.Migrations
                     IsTentative = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
                     ReasonForBoot = table.Column<int>(nullable: false),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -467,11 +621,11 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityUsers_Users_UserID",
+                        name: "FK_ActivityUsers_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -482,11 +636,11 @@ namespace Fireteam.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     ActivityID = table.Column<int>(nullable: true),
                     BlockingGroupID = table.Column<int>(nullable: true),
-                    BlockingUserID = table.Column<int>(nullable: true),
+                    BlockingUserID = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -504,17 +658,17 @@ namespace Fireteam.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BlockedUsers_Users_BlockingUserID",
+                        name: "FK_BlockedUsers_AspNetUsers_BlockingUserID",
                         column: x => x.BlockingUserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BlockedUsers_Users_UserID",
+                        name: "FK_BlockedUsers_AspNetUsers_UserID",
                         column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -603,6 +757,16 @@ namespace Fireteam.Migrations
                 column: "GroupTypeID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GroupPlatform_GroupID",
+                table: "GroupPlatform",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupPlatform_PlatformID",
+                table: "GroupPlatform",
+                column: "PlatformID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GroupUsers_GroupID",
                 table: "GroupUsers",
                 column: "GroupID");
@@ -626,6 +790,17 @@ namespace Fireteam.Migrations
                 name: "IX_PlatformAccounts_UserID",
                 table: "PlatformAccounts",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserFriends_FriendID",
@@ -656,6 +831,32 @@ namespace Fireteam.Migrations
                 name: "IX_UserGroups_UserID",
                 table: "UserGroups",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -673,6 +874,9 @@ namespace Fireteam.Migrations
                 name: "GamePlatforms");
 
             migrationBuilder.DropTable(
+                name: "GroupPlatform");
+
+            migrationBuilder.DropTable(
                 name: "GroupUsers");
 
             migrationBuilder.DropTable(
@@ -688,6 +892,21 @@ namespace Fireteam.Migrations
                 name: "UserGroups");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "Activities");
 
             migrationBuilder.DropTable(
@@ -697,13 +916,16 @@ namespace Fireteam.Migrations
                 name: "Platforms");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "ActivityTypes");
 
             migrationBuilder.DropTable(
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Games");
