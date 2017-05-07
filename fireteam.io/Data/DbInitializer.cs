@@ -17,11 +17,16 @@ namespace Fireteam.Data
                 return; // Context has already been seeded
             }
 
+            var userDict = new Dictionary<string, string>();
+            userDict.Add("leeeeroy", Guid.NewGuid().ToString());
+            userDict.Add("dmaul", Guid.NewGuid().ToString());
+            userDict.Add("kbecks", Guid.NewGuid().ToString());
+
             var users = new User[]
-            {
+                {
                 new User()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = userDict["leeeeroy"],
                     UserName = "leeeeroy",
                     FirstName = "Leroy",
                     LastName = "Jenkins",
@@ -36,7 +41,7 @@ namespace Fireteam.Data
                 },
                 new User()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = userDict["dmaul"],
                     UserName = "dmaul",
                     FirstName = "Darth",
                     LastName = "Maul",
@@ -51,7 +56,7 @@ namespace Fireteam.Data
                 },
                 new User()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = userDict["kbecks"],
                     UserName = "kbecks",
                     FirstName = "Kate",
                     LastName = "Beckinsale",
@@ -64,7 +69,7 @@ namespace Fireteam.Data
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 }
-            };
+                };
 
             foreach (var user in users)
             {
@@ -73,10 +78,10 @@ namespace Fireteam.Data
 
             var userFriends = new UserFriend[]
             {
-                new UserFriend(){ ID = 1, UserID = Guid.NewGuid().ToString(), FriendID = Guid.NewGuid().ToString(), CanAddToActivities = true, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false },
-                new UserFriend(){ ID = 2, UserID = Guid.NewGuid().ToString(), FriendID = Guid.NewGuid().ToString(), CanAddToActivities = false, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false },
-                new UserFriend(){ ID = 3, UserID = Guid.NewGuid().ToString(), FriendID = Guid.NewGuid().ToString(), CanAddToActivities = true, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false },
-                new UserFriend(){ ID = 4, UserID = Guid.NewGuid().ToString(), FriendID = Guid.NewGuid().ToString(), CanAddToActivities = true, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false }
+                new UserFriend(){ ID = 1, UserID = userDict["leeeeroy"], FriendID = userDict["dmaul"], CanAddToActivities = true, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false },
+                new UserFriend(){ ID = 2, UserID = userDict["leeeeroy"], FriendID = userDict["kbecks"], CanAddToActivities = false, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false },
+                new UserFriend(){ ID = 3, UserID = userDict["dmaul"], FriendID = userDict["leeeeroy"], CanAddToActivities = true, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false },
+                new UserFriend(){ ID = 4, UserID = userDict["kbecks"], FriendID = userDict["leeeeroy"], CanAddToActivities = true, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false }
             };
 
             foreach (var userFriend in userFriends)
@@ -268,7 +273,7 @@ namespace Fireteam.Data
                 {
                     ID = 1,
                     GroupID = 1,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["leeeeroy"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 },
@@ -276,7 +281,7 @@ namespace Fireteam.Data
                 {
                     ID = 2,
                     GroupID = 2,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["leeeeroy"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 },
@@ -284,7 +289,7 @@ namespace Fireteam.Data
                 {
                     ID = 3,
                     GroupID = 2,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["dmaul"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 },
@@ -292,7 +297,7 @@ namespace Fireteam.Data
                 {
                     ID = 4,
                     GroupID = 3,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["kbecks"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 }
@@ -306,10 +311,10 @@ namespace Fireteam.Data
 
             var groupUsers = new GroupUser[]
             {
-                new GroupUser(){ ID = 1, GroupID = 4, UserID = Guid.NewGuid().ToString(), IsDeleted = false, IsGroupLeadership = true, Created = DateTime.Now.ToUniversalTime() },
-                new GroupUser(){ ID = 2, GroupID = 1, UserID = Guid.NewGuid().ToString(), IsDeleted = false, IsGroupLeadership = true, Created = DateTime.Now.ToUniversalTime() },
-                new GroupUser(){ ID = 3, GroupID = 2, UserID = Guid.NewGuid().ToString(), IsDeleted = false, IsGroupLeadership = true, Created = DateTime.Now.ToUniversalTime() },
-                new GroupUser(){ ID = 4, GroupID = 2, UserID = Guid.NewGuid().ToString(), IsDeleted = false, IsGroupLeadership = false, Created = DateTime.Now.ToUniversalTime() }
+                new GroupUser(){ ID = 1, GroupID = 4, UserID = userDict["kbecks"], IsDeleted = false, IsGroupLeadership = true, Created = DateTime.Now.ToUniversalTime() },
+                new GroupUser(){ ID = 2, GroupID = 1, UserID = userDict["leeeeroy"], IsDeleted = false, IsGroupLeadership = true, Created = DateTime.Now.ToUniversalTime() },
+                new GroupUser(){ ID = 3, GroupID = 2, UserID = userDict["dmaul"], IsDeleted = false, IsGroupLeadership = true, Created = DateTime.Now.ToUniversalTime() },
+                new GroupUser(){ ID = 4, GroupID = 2, UserID = userDict["leeeeroy"], IsDeleted = false, IsGroupLeadership = false, Created = DateTime.Now.ToUniversalTime() }
             };
 
             foreach (var groupUser in groupUsers)
@@ -485,11 +490,11 @@ namespace Fireteam.Data
 
             var platformAccounts = new PlatformAccount[]
             {
-                new PlatformAccount(){ ID = 1, ConsoleModelID = 1, UserID = Guid.NewGuid().ToString(), PlatformID = 1, GamerTag = "selene", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
-                new PlatformAccount(){ ID = 2, ConsoleModelID = 2, UserID = Guid.NewGuid().ToString(), PlatformID = 1, GamerTag = "selene", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
-                new PlatformAccount(){ ID = 3, ConsoleModelID = 3, UserID = Guid.NewGuid().ToString(), PlatformID = 1, GamerTag = "selene", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
-                new PlatformAccount(){ ID = 4, ConsoleModelID = 4, UserID = Guid.NewGuid().ToString(), PlatformID = 2, GamerTag = "XxDarthDudexX", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
-                new PlatformAccount(){ ID = 5, UserID = Guid.NewGuid().ToString(), PlatformID = 4, GamerTag = "lroy_JEENKINS", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false }
+                new PlatformAccount(){ ID = 1, ConsoleModelID = 1, UserID = userDict["kbecks"], PlatformID = 1, GamerTag = "selene", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
+                new PlatformAccount(){ ID = 2, ConsoleModelID = 2, UserID = userDict["kbecks"], PlatformID = 1, GamerTag = "selene", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
+                new PlatformAccount(){ ID = 3, ConsoleModelID = 3, UserID = userDict["kbecks"], PlatformID = 1, GamerTag = "selene", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
+                new PlatformAccount(){ ID = 4, ConsoleModelID = 4, UserID = userDict["dmaul"], PlatformID = 2, GamerTag = "XxDarthDudexX", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
+                new PlatformAccount(){ ID = 5, UserID = userDict["leeeeroy"], PlatformID = 4, GamerTag = "lroy_JEENKINS", Created = DateTime.Now.ToUniversalTime(), IsDeleted = false }
             };
 
             foreach (var platformAccount in platformAccounts)
@@ -508,7 +513,7 @@ namespace Fireteam.Data
                     Description = "Black Spindle mission.  Come have a chill run and get things done!  Looking for a good team to get through this.",
                     Duration = "00:02:00",
                     GameID = 1,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["leeeeroy"],
                     Requirements = "Must have Y4 Ice Breaker... just cuz.",
                     TimeZone = "America/Chicago",
                     StartTime = DateTime.Now.AddDays(14).ToUniversalTime(),
@@ -525,7 +530,7 @@ namespace Fireteam.Data
                     Description = "Trying to get this stupid exotic quest done.  Need two to run some strikes with.",
                     Duration = "00:01:30",
                     GameID = 1,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["dmaul"],
                     Requirements = "Need a Hunter and a Warlock.  I'll bring my Titan",
                     TimeZone = "America/Los_Angeles",
                     StartTime = DateTime.Now.AddDays(21).ToUniversalTime(),
@@ -542,7 +547,7 @@ namespace Fireteam.Data
                     Description = "Private raid with 'Selene' to expterminate these Lycans.. I mean Fallen... once and for all.",
                     Duration = "00:04:00",
                     GameID = 1,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["kbecks"],
                     GroupID = 4,
                     Requirements = "Request to join.  Your credentials will be checked at the door... by force, if necessary",
                     TimeZone = "America/New_York",
@@ -563,9 +568,9 @@ namespace Fireteam.Data
 
             var userGames = new UserGame[]
             {
-                new UserGame(){ ID = 1, UserID = Guid.NewGuid().ToString(), GameID = 1, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
-                new UserGame(){ ID = 2, UserID = Guid.NewGuid().ToString(), GameID = 1, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
-                new UserGame(){ ID = 3, UserID = Guid.NewGuid().ToString(), GameID = 1, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false}, 
+                new UserGame(){ ID = 1, UserID = userDict["leeeeroy"], GameID = 1, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
+                new UserGame(){ ID = 2, UserID = userDict["dmaul"], GameID = 1, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
+                new UserGame(){ ID = 3, UserID = userDict["kbecks"], GameID = 1, Created = DateTime.Now.ToUniversalTime(), IsDeleted = false},
             };
 
             foreach (var userGame in userGames)
@@ -586,7 +591,7 @@ namespace Fireteam.Data
                     IsDeleted = false,
                     IsTentative = false,
                     ReasonForBoot = (int) BootReasons.None,
-                    UserID = Guid.NewGuid().ToString()
+                    UserID = userDict["leeeeroy"]
                 },
                 new ActivityUser()
                 {
@@ -597,18 +602,18 @@ namespace Fireteam.Data
                     IsDeleted = false,
                     IsTentative = false,
                     ReasonForBoot = (int) BootReasons.Unfriendly,
-                    UserID = Guid.NewGuid().ToString()
+                    UserID = userDict["dmaul"]
                 },
                 new ActivityUser()
                 {
                     ID = 3,
-                    ActivityID = 1,
+                    ActivityID = 4,
                     Created = DateTime.Now.ToUniversalTime(),
                     HasBeenBooted = false,
                     IsDeleted = false,
                     IsTentative = false,
                     ReasonForBoot = (int) BootReasons.None,
-                    UserID = Guid.NewGuid().ToString()
+                    UserID = userDict["kbecks"]
                 }
             };
 
@@ -624,15 +629,15 @@ namespace Fireteam.Data
                 {
                     ID = 1,
                     ActivityID = 1,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["dmaul"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 },
                 new BlockedUser()
                 {
                     ID = 2,
-                    BlockingUserID = Guid.NewGuid().ToString(),
-                    UserID = Guid.NewGuid().ToString(),
+                    BlockingUserID = userDict["kbecks"],
+                    UserID = userDict["dmaul"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 },
@@ -640,7 +645,7 @@ namespace Fireteam.Data
                 {
                     ID = 3,
                     BlockingGroupID = 1,
-                    UserID = Guid.NewGuid().ToString(),
+                    UserID = userDict["dmaul"],
                     Created = DateTime.Now.ToUniversalTime(),
                     IsDeleted = false
                 }

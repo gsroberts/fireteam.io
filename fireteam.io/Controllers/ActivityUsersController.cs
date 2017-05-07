@@ -20,10 +20,10 @@ namespace Fireteam.Controllers
         }
 
         // GET: ActivityUsers
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index(string username)
         {
-            var activityUsers = (!string.IsNullOrWhiteSpace(userId)) ? _context.ActivityUsers
-                                                                    .Where(a => a.UserID == userId)
+            var activityUsers = (!string.IsNullOrWhiteSpace(username)) ? _context.ActivityUsers
+                                                                    .Where(a => a.User.UserName == username)
                                                                     .Include(a => a.Activity)
                                                                         .ThenInclude(a => a.ActivityType)
                                                                     .Include(a => a.User) : _context.ActivityUsers
@@ -33,7 +33,7 @@ namespace Fireteam.Controllers
 
             
 
-            ViewData["UserID"] = userId;
+            ViewData["Username"] = username;
 
             return View(await activityUsers.ToListAsync());
         }
