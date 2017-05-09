@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fireteam.Data;
 using Fireteam.Models;
+using Fireteam.Common.Extensions;
 
 namespace Fireteam.Controllers
 {

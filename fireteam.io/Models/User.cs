@@ -15,17 +15,11 @@ namespace Fireteam.Models
     public class User : IdentityUser
     {
         /// <summary>
-        /// Gets or sets this users password
+        /// The name to display to others
         /// 
-        /// This is the salted and hashed version of the users password
-        /// The actual value of the password is never stored
+        /// This property is the only "public" name any other user will ever see
         /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user's per-user salt
-        /// </summary>
-        public string Salt { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Gets or sets the user's first name

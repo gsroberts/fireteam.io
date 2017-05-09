@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Fireteam.Data;
 
-namespace WebApplicationWithIdentity.Data.Migrations
+namespace Fireteam.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
-    [Migration("20170506143130_CreateFireteamModelTables")]
-    partial class CreateFireteamModelTables
+    [Migration("20170509170900_OriginalCreatePlusIdentityChanges")]
+    partial class OriginalCreatePlusIdentityChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,7 +107,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<int>("ReasonForBoot");
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UserID")
+                        .HasMaxLength(36);
 
                     b.HasKey("ID");
 
@@ -127,7 +128,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<int?>("BlockingGroupID");
 
-                    b.Property<string>("BlockingUserID");
+                    b.Property<string>("BlockingUserID")
+                        .HasMaxLength(36);
 
                     b.Property<DateTime>("Created");
 
@@ -135,7 +137,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UserID")
+                        .HasMaxLength(36);
 
                     b.HasKey("ID");
 
@@ -357,7 +360,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UserID")
+                        .HasMaxLength(36);
 
                     b.HasKey("ID");
 
@@ -419,7 +423,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
             modelBuilder.Entity("Fireteam.Models.User", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
 
                     b.Property<int>("AccessFailedCount");
 
@@ -431,6 +436,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<DateTime>("Created");
+
+                    b.Property<string>("DisplayName");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -455,17 +462,13 @@ namespace WebApplicationWithIdentity.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Password");
+                        .HasMaxLength(200);
 
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("Salt");
 
                     b.Property<string>("SecurityStamp");
 
@@ -474,7 +477,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -497,13 +500,15 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("FriendID");
+                    b.Property<string>("FriendID")
+                        .HasMaxLength(36);
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UserID")
+                        .HasMaxLength(36);
 
                     b.HasKey("ID");
 
@@ -527,7 +532,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UserID")
+                        .HasMaxLength(36);
 
                     b.HasKey("ID");
 
@@ -551,7 +557,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<string>("UserID");
+                    b.Property<string>("UserID")
+                        .HasMaxLength(36);
 
                     b.HasKey("ID");
 
@@ -570,11 +577,14 @@ namespace WebApplicationWithIdentity.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasMaxLength(200);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -583,6 +593,8 @@ namespace WebApplicationWithIdentity.Data.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -667,6 +679,16 @@ namespace WebApplicationWithIdentity.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Fireteam.Models.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole");
+
+
+                    b.ToTable("Role");
+
+                    b.HasDiscriminator().HasValue("Role");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Activity", b =>

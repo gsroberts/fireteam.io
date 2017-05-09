@@ -33,7 +33,7 @@
                             </div>
                             <div class="card-content">
                                 <div class="row">
-                                    <label>Organizer: <button class="btn btn-primary btn-simple">@item.Organizer.UserName</button></label><br />
+                                    <label>Organizer: <button class="btn btn-primary btn-simple">@((!string.IsNullOrWhiteSpace(item.Organizer.DisplayName))? item.Organizer.DisplayName : "Anonymous User")</button></label><br />
                                     <label>
                                         Tags:
                                         <button class="btn btn-primary btn-simple">@item.Game.Title</button>

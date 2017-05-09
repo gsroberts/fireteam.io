@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WebApplicationWithIdentity.Data.Migrations
+namespace Fireteam.Migrations
 {
-    public partial class CreateFireteamModelTables : Migration
+    public partial class OriginalCreatePlusIdentityChanges : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -30,7 +30,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -47,7 +47,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -64,7 +64,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
@@ -79,12 +79,14 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(maxLength: 36, nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Birthday = table.Column<DateTime>(nullable: false),
                     CanShowInSearches = table.Column<bool>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
+                    DisplayName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
@@ -95,16 +97,14 @@ namespace WebApplicationWithIdentity.Data.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Password = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 200, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    Salt = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TimeZone = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                    UserName = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,10 +115,12 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false)
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
+                    Discriminator = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -144,7 +146,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     GameTypeID = table.Column<int>(nullable: false),
@@ -170,7 +172,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     GroupTypeID = table.Column<int>(nullable: false),
@@ -196,13 +198,13 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     CanAddToActivities = table.Column<bool>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
-                    FriendID = table.Column<string>(nullable: true),
+                    FriendID = table.Column<string>(maxLength: 36, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(maxLength: 36, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -226,7 +228,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
@@ -267,7 +269,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     RoleId = table.Column<string>(nullable: false)
@@ -312,7 +314,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     GameID = table.Column<int>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -336,7 +338,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     GameID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -365,12 +367,12 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     GameID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(maxLength: 36, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -394,7 +396,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ActivityTypeID = table.Column<int>(nullable: false),
                     AvailableSlots = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
@@ -446,7 +448,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     GroupID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -475,13 +477,13 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     GroupID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsGroupLeadership = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(maxLength: 36, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -505,12 +507,12 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     Created = table.Column<DateTime>(nullable: false),
                     GroupID = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(maxLength: 36, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -534,7 +536,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ConsoleModelID = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     GameID = table.Column<int>(nullable: false),
@@ -563,7 +565,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ConsoleModelID = table.Column<int>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     GamerTag = table.Column<string>(nullable: true),
@@ -600,7 +602,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ActivityID = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     HasBeenBooted = table.Column<bool>(nullable: false),
@@ -609,7 +611,7 @@ namespace WebApplicationWithIdentity.Data.Migrations
                     IsTentative = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
                     ReasonForBoot = table.Column<int>(nullable: false),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(maxLength: 36, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -633,14 +635,14 @@ namespace WebApplicationWithIdentity.Data.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ActivityID = table.Column<int>(nullable: true),
                     BlockingGroupID = table.Column<int>(nullable: true),
-                    BlockingUserID = table.Column<string>(nullable: true),
+                    BlockingUserID = table.Column<string>(maxLength: 36, nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: true),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(maxLength: 36, nullable: true)
                 },
                 constraints: table =>
                 {
