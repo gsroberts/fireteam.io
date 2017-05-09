@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace WebApplicationWithIdentity.Models.ManageViewModels
+namespace Fireteam.Models.ManageViewModels
 {
     public class ManageLoginsViewModel
     {

@@ -1,11 +1,15 @@
 ﻿@using System.Collections.Generic
+@using Fireteam.Models
+@using Fireteam.Models.AccountViewModels
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
-@model LoginViewModel
-@inject SignInManager<ApplicationUser> SignInManager
+@using Microsoft.AspNetCore.Identity
+@model Fireteam.Models.AccountViewModels.LoginViewModel
+@inject SignInManager<User> SignInManager
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = "_Layout";
 }
 
 <h2>@ViewData["Title"].</h2>

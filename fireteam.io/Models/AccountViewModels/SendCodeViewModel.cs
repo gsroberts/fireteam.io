@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebApplicationWithIdentity.Models.AccountViewModels
+namespace Fireteam.Models.AccountViewModels
 {
     public class SendCodeViewModel
     {

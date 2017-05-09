@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WebApplicationWithIdentity.Models;
-using WebApplicationWithIdentity.Models.ManageViewModels;
-using WebApplicationWithIdentity.Services;
 using Fireteam.Models;
+using Fireteam.Services;
+using Fireteam.Models.ManageViewModels;
 
 namespace Fireteam.Controllers
 {

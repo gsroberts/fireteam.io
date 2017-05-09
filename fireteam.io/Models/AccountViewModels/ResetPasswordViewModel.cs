@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplicationWithIdentity.Models.AccountViewModels
+namespace Fireteam.Models.AccountViewModels
 {
     public class ResetPasswordViewModel
     {

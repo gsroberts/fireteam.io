@@ -7,9 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 using Fireteam.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Fireteam.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly FireteamDbContext _context;

@@ -7,22 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fireteam.Data;
 using Fireteam.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Fireteam.Controllers
 {
     public class GroupUsersController : Controller
     {
         private readonly FireteamDbContext _context;
+        private UserManager<User> _userManager;
 
-        public GroupUsersController(FireteamDbContext context)
+        public GroupUsersController(FireteamDbContext context, UserManager<User> userManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
         }
 
         // GET: GroupUsers
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index()
         {
-            var fireteamDbContext = (string.IsNullOrWhiteSpace(userId)) ? _context.GroupUsers
+            var userId = _userManager.GetUserId(this.User);
+
+            var fireteamDbContext = (this.User != null) ? _context.GroupUsers
                                                                     .Where(g => g.UserID == userId)
                                                                     .Include(g => g.Group)
                                                                     .Include(g => g.User) : _context.GroupUsers

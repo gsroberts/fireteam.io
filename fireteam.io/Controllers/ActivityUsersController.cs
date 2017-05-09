@@ -22,8 +22,8 @@ namespace Fireteam.Controllers
         // GET: ActivityUsers
         public async Task<IActionResult> Index(string username)
         {
-            var activityUsers = (!string.IsNullOrWhiteSpace(username)) ? _context.ActivityUsers
-                                                                    .Where(a => a.User.UserName == username)
+            var activityUsers = (this.User != null) ? _context.ActivityUsers
+                                                                    .Where(a => a.User.UserName == this.User.Identity.Name)
                                                                     .Include(a => a.Activity)
                                                                         .ThenInclude(a => a.ActivityType)
                                                                     .Include(a => a.User) : _context.ActivityUsers

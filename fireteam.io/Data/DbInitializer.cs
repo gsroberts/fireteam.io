@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fireteam.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fireteam.Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(FireteamDbContext context)
+        public static void Initialize(FireteamDbContext context, UserManager<User> userManager)
         {
             context.Database.EnsureCreated();
 
@@ -27,47 +29,59 @@ namespace Fireteam.Data
                 new User()
                 {
                     Id = userDict["leeeeroy"],
-                    UserName = "leeeeroy",
+                    UserName = "leroyjenkins@gmaul.com",
                     FirstName = "Leroy",
                     LastName = "Jenkins",
                     CanShowInSearches = true,
                     Email = "leroyjenkins@gmaul.com",
-                    Password = "abc1234567890",
-                    Salt = "lkajsdlkajsdlkjasd",
                     TimeZone = "America/Chicago",
                     Birthday = DateTime.Parse("6/15/1983").ToUniversalTime(),
                     Created = DateTime.Now.ToUniversalTime(),
-                    IsDeleted = false
+                    IsDeleted = false,
+                    EmailConfirmed = true,
+                    Gender = (int)Gender.Male,
+                    LockoutEnabled = true,
+                    PhoneNumber = "(555)-555-1234",
+                    PhoneNumberConfirmed = true,
+                    TwoFactorEnabled = false
                 },
                 new User()
                 {
                     Id = userDict["dmaul"],
-                    UserName = "dmaul",
+                    UserName = "darkside@msnn.au",
                     FirstName = "Darth",
                     LastName = "Maul",
                     CanShowInSearches = true,
                     Email = "darkside@msnn.au",
-                    Password = "abc1234567890",
-                    Salt = "lkajsdlkajsdlkjasd",
                     TimeZone = "America/Los_Angeles",
                     Birthday = DateTime.Parse("9/02/1972").ToUniversalTime(),
                     Created = DateTime.Now.ToUniversalTime(),
-                    IsDeleted = false
+                    IsDeleted = false,
+                    EmailConfirmed = true,
+                    Gender = (int)Gender.Male,
+                    LockoutEnabled = true,
+                    PhoneNumber = "(555)-555-4442",
+                    PhoneNumberConfirmed = true,
+                    TwoFactorEnabled = false
                 },
                 new User()
                 {
                     Id = userDict["kbecks"],
-                    UserName = "kbecks",
+                    UserName = "kbecks@mybase.com",
                     FirstName = "Kate",
                     LastName = "Beckinsale",
                     CanShowInSearches = false,
                     Email = "kbecks@mybase.com",
-                    Password = "abc1234567890",
-                    Salt = "lkajsdlkajsdlkjasd",
                     TimeZone = "America/New_York",
                     Birthday = DateTime.Parse("8/06/1973").ToUniversalTime(),
                     Created = DateTime.Now.ToUniversalTime(),
-                    IsDeleted = false
+                    IsDeleted = false,
+                    EmailConfirmed = true,
+                    Gender = (int)Gender.Female,
+                    LockoutEnabled = true,
+                    PhoneNumber = "(555)-867-5309",
+                    PhoneNumberConfirmed = true,
+                    TwoFactorEnabled = false
                 }
                 };
 
@@ -75,6 +89,14 @@ namespace Fireteam.Data
             {
                 context.Users.Add(user);
             }
+            context.SaveChanges();
+
+            foreach (var user in users)
+            {
+                Task<IdentityResult> result = userManager.AddPasswordAsync(user, "Abc!234567890");
+                result.Wait();
+            }
+            context.SaveChanges();
 
             var userFriends = new UserFriend[]
             {
@@ -607,7 +629,7 @@ namespace Fireteam.Data
                 new ActivityUser()
                 {
                     ID = 3,
-                    ActivityID = 4,
+                    ActivityID = 3,
                     Created = DateTime.Now.ToUniversalTime(),
                     HasBeenBooted = false,
                     IsDeleted = false,

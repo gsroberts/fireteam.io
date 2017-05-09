@@ -9,10 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WebApplicationWithIdentity.Models;
-using WebApplicationWithIdentity.Models.AccountViewModels;
-using WebApplicationWithIdentity.Services;
 using Fireteam.Models;
+using Fireteam.Services;
+using Fireteam.Models.AccountViewModels;
 
 namespace Fireteam.Controllers
 {

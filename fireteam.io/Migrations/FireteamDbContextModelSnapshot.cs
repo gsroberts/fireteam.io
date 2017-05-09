@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Fireteam.Data;
 
-namespace WebApplicationWithIdentity.Data.Migrations
+namespace Fireteam.Data.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
     partial class FireteamDbContextModelSnapshot : ModelSnapshot

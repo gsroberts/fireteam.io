@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MySql.Data.MySqlClient;
-using MySQL.Data.EntityFrameworkCore.Extensions;
-using WebApplicationWithIdentity.Services;
+using Fireteam.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fireteam
 {
@@ -34,7 +34,7 @@ namespace Fireteam
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<FireteamDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<FireteamDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<FireteamDbContext>()
@@ -96,7 +96,7 @@ namespace Fireteam
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DbInitializer.Initialize(context);
+            DbInitializer.Initialize(context, app.ApplicationServices.GetService<UserManager<User>>());
         }
     }
 }

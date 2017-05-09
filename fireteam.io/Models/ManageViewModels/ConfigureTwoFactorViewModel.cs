@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace WebApplicationWithIdentity.Models.ManageViewModels
+namespace Fireteam.Models.ManageViewModels
 {
     public class ConfigureTwoFactorViewModel
     {

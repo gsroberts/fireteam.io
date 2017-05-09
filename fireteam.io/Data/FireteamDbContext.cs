@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Fireteam.Data
 {
-    //public class FireteamDbContext : DbContext
     public class FireteamDbContext : IdentityDbContext<User>
     {
         //public DbSet<User> Users { get; set; }
