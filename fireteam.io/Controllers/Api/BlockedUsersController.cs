@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Fireteam.Data;
 using Fireteam.Models;
 
-namespace fireteam.io.Controllers.Api
+namespace Fireteam.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/blocked-users")]

@@ -104,7 +104,7 @@ namespace Fireteam.Models
         /// Gets or sets the ID of the user that is this activity's
         /// organizer
         /// </summary>
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         /// <summary>
         /// Gets or sets the user that is this activity's organizer

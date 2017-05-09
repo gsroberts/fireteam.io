@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Fireteam.Data;
 
-namespace Fireteam.Migrations
+namespace WebApplicationWithIdentity.Data.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
-    [Migration("20170422152017_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20170506143130_CreateFireteamModelTables")]
+    partial class CreateFireteamModelTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace Fireteam.Migrations
 
                     b.Property<string>("TimeZone");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -107,7 +107,7 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("ReasonForBoot");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -127,7 +127,7 @@ namespace Fireteam.Migrations
 
                     b.Property<int?>("BlockingGroupID");
 
-                    b.Property<int?>("BlockingUserID");
+                    b.Property<string>("BlockingUserID");
 
                     b.Property<DateTime>("Created");
 
@@ -135,7 +135,7 @@ namespace Fireteam.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -298,6 +298,30 @@ namespace Fireteam.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("Fireteam.Models.GroupPlatform", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<int>("GroupID");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModified");
+
+                    b.Property<int>("PlatformID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GroupID");
+
+                    b.HasIndex("PlatformID");
+
+                    b.ToTable("GroupPlatform");
+                });
+
             modelBuilder.Entity("Fireteam.Models.GroupType", b =>
                 {
                     b.Property<int>("ID")
@@ -333,7 +357,7 @@ namespace Fireteam.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -379,7 +403,7 @@ namespace Fireteam.Migrations
 
                     b.Property<int>("PlatformID");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -394,16 +418,24 @@ namespace Fireteam.Migrations
 
             modelBuilder.Entity("Fireteam.Models.User", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
 
                     b.Property<DateTime>("Birthday");
 
                     b.Property<bool>("CanShowInSearches");
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
 
@@ -415,17 +447,45 @@ namespace Fireteam.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
                     b.Property<string>("Password");
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("Salt");
 
+                    b.Property<string>("SecurityStamp");
+
                     b.Property<string>("TimeZone");
 
-                    b.Property<string>("UserName");
+                    b.Property<bool>("TwoFactorEnabled");
 
-                    b.HasKey("ID");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
 
-                    b.ToTable("Users");
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserFriend", b =>
@@ -437,13 +497,13 @@ namespace Fireteam.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<int>("FriendID");
+                    b.Property<string>("FriendID");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -467,7 +527,7 @@ namespace Fireteam.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -491,7 +551,7 @@ namespace Fireteam.Migrations
 
                     b.Property<DateTime?>("LastModified");
 
-                    b.Property<int>("UserID");
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 
@@ -500,6 +560,113 @@ namespace Fireteam.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("UserGroups");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("Fireteam.Models.Activity", b =>
@@ -520,8 +687,7 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "Organizer")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.ActivityUser", b =>
@@ -533,8 +699,7 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.BlockedUser", b =>
@@ -553,8 +718,7 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "UserBeingBlocked")
                         .WithMany("BlockedUsers")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.ConsoleModel", b =>
@@ -606,6 +770,19 @@ namespace Fireteam.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Fireteam.Models.GroupPlatform", b =>
+                {
+                    b.HasOne("Fireteam.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Fireteam.Models.GroupUser", b =>
                 {
                     b.HasOne("Fireteam.Models.Group", "Group")
@@ -615,8 +792,7 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.PlatformAccount", b =>
@@ -632,21 +808,18 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserFriend", b =>
                 {
                     b.HasOne("Fireteam.Models.User", "Friend")
                         .WithMany()
-                        .HasForeignKey("FriendID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FriendID");
 
                     b.HasOne("Fireteam.Models.User", "FriendedUser")
                         .WithMany("Friends")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserGame", b =>
@@ -658,8 +831,7 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Games")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserGroup", b =>
@@ -671,7 +843,43 @@ namespace Fireteam.Migrations
 
                     b.HasOne("Fireteam.Models.User", "User")
                         .WithMany("Groups")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                        .WithMany("Claims")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Fireteam.Models.User")
+                        .WithMany("Claims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Fireteam.Models.User")
+                        .WithMany("Logins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Fireteam.Models.User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
