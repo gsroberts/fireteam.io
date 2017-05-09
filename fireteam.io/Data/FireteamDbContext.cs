@@ -5,7 +5,6 @@ using Fireteam.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using MySQL.Data.EntityFrameworkCore.Extensions;
 using Microsoft.Extensions.Configuration;
 
 namespace Fireteam.Data
