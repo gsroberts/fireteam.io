@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fireteam.Common.Extensions;
 using Fireteam.Data;
 using Fireteam.Models;
 using Microsoft.AspNetCore.Builder;
@@ -79,6 +80,7 @@ namespace Fireteam
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                context.Database.Migrate();
             }
             else
             {

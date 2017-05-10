@@ -45,12 +45,6 @@ namespace Fireteam.Data
                 .Property(u => u.Id)
                 .HasMaxLength(36);
             modelBuilder.Entity<User>()
-                .Property(u => u.UserName)
-                .HasMaxLength(200);
-            modelBuilder.Entity<User>()
-                .Property(u => u.NormalizedUserName)
-                .HasMaxLength(200);
-            modelBuilder.Entity<User>()
                 .HasMany(u => u.Groups);
             modelBuilder.Entity<User>()
                 .HasMany(u => u.BlockedUsers)
@@ -61,6 +55,21 @@ namespace Fireteam.Data
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Games)
                 .WithOne(b => b.User);
+
+            //Restrict username and email to the same length (max length for email address)
+            //to avoid unique index issues
+            modelBuilder.Entity<User>()
+                .Property(u => u.UserName)
+                .HasMaxLength(254);
+            modelBuilder.Entity<User>()
+                .Property(u => u.NormalizedUserName)
+                .HasMaxLength(254);
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .HasMaxLength(254);
+            modelBuilder.Entity<User>()
+                .Property(u => u.NormalizedEmail)
+                .HasMaxLength(254);
 
             modelBuilder.Entity<Activity>()
                 .HasKey(a => a.ID);
@@ -185,10 +194,10 @@ namespace Fireteam.Data
 
             modelBuilder.Entity<Role>()
                 .Property(r => r.NormalizedName)
-                .HasMaxLength(200);
+                .HasMaxLength(254);
             modelBuilder.Entity<Role>()
                 .Property(r => r.Name)
-                .HasMaxLength(200);
+                .HasMaxLength(254);
         }
     }
 }

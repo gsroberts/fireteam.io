@@ -12,7 +12,7 @@ namespace Fireteam.Data
     {
         public static void Initialize(FireteamDbContext context, UserManager<User> userManager)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
 
             if (context.Users.Any())
             {
@@ -30,10 +30,13 @@ namespace Fireteam.Data
                 {
                     Id = userDict["leeeeroy"],
                     UserName = "leroyjenkins@gmaul.com",
+                    NormalizedUserName = "LEROYJENKINS@GMAUL.COM",
                     FirstName = "Leroy",
                     LastName = "Jenkins",
+                    DisplayName = "lroy-j",
                     CanShowInSearches = true,
                     Email = "leroyjenkins@gmaul.com",
+                    NormalizedEmail = "LEROYJENKINS@GMAUL.COM",
                     TimeZone = "America/Chicago",
                     Birthday = DateTime.Parse("6/15/1983").ToUniversalTime(),
                     Created = DateTime.Now.ToUniversalTime(),
@@ -49,10 +52,13 @@ namespace Fireteam.Data
                 {
                     Id = userDict["dmaul"],
                     UserName = "darkside@msnn.au",
+                    NormalizedUserName = "DARKSIDE@MSNN.AU",
                     FirstName = "Darth",
                     LastName = "Maul",
+                    DisplayName = "xXxDarth_LordxXx",
                     CanShowInSearches = true,
                     Email = "darkside@msnn.au",
+                    NormalizedEmail = "DARKSIDE@MSNN.AU",
                     TimeZone = "America/Los_Angeles",
                     Birthday = DateTime.Parse("9/02/1972").ToUniversalTime(),
                     Created = DateTime.Now.ToUniversalTime(),
@@ -68,10 +74,13 @@ namespace Fireteam.Data
                 {
                     Id = userDict["kbecks"],
                     UserName = "kbecks@mybase.com",
+                    NormalizedUserName = "KBECKS@MYBASE.COM",
                     FirstName = "Kate",
                     LastName = "Beckinsale",
+                    DisplayName = "~Selene~~",
                     CanShowInSearches = false,
                     Email = "kbecks@mybase.com",
+                    NormalizedEmail = "KBECKS@MYBASE.COM",
                     TimeZone = "America/New_York",
                     Birthday = DateTime.Parse("8/06/1973").ToUniversalTime(),
                     Created = DateTime.Now.ToUniversalTime(),

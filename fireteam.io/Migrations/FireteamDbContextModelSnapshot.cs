@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Fireteam.Data;
 
 namespace Fireteam.Migrations
@@ -439,7 +438,7 @@ namespace Fireteam.Migrations
                     b.Property<string>("DisplayName");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasMaxLength(254);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -458,10 +457,10 @@ namespace Fireteam.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasMaxLength(254);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.Property<string>("PasswordHash");
 
@@ -476,7 +475,7 @@ namespace Fireteam.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.HasKey("Id");
 
@@ -580,10 +579,10 @@ namespace Fireteam.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.HasKey("Id");
 

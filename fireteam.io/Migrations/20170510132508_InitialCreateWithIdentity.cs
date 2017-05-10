@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Fireteam.Migrations
 {
-    public partial class OriginalCreatePlusIdentityChanges : Migration
+    public partial class InitialCreateWithIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,7 +87,7 @@ namespace Fireteam.Migrations
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     DisplayName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 254, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
@@ -96,15 +96,15 @@ namespace Fireteam.Migrations
                     LastName = table.Column<string>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 200, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 254, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 254, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TimeZone = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 200, nullable: true)
+                    UserName = table.Column<string>(maxLength: 254, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -119,8 +119,8 @@ namespace Fireteam.Migrations
                         .Annotation("MySql:ValueGeneratedOnAdd", true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 200, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 200, nullable: true)
+                    Name = table.Column<string>(maxLength: 254, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 254, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -883,6 +883,9 @@ namespace Fireteam.Migrations
 
             migrationBuilder.DropTable(
                 name: "PlatformAccounts");
+
+            migrationBuilder.DropTable(
+                name: "UserAuditEvents");
 
             migrationBuilder.DropTable(
                 name: "UserFriends");

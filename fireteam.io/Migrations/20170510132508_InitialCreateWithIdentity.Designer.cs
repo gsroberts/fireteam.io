@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Fireteam.Data;
+using Fireteam.Models;
 
 namespace Fireteam.Migrations
 {
     [DbContext(typeof(FireteamDbContext))]
-    [Migration("20170509170900_OriginalCreatePlusIdentityChanges")]
-    partial class OriginalCreatePlusIdentityChanges
+    [Migration("20170510132508_InitialCreateWithIdentity")]
+    partial class InitialCreateWithIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -440,7 +441,7 @@ namespace Fireteam.Migrations
                     b.Property<string>("DisplayName");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasMaxLength(254);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -459,10 +460,10 @@ namespace Fireteam.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasMaxLength(254);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.Property<string>("PasswordHash");
 
@@ -477,7 +478,7 @@ namespace Fireteam.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.HasKey("Id");
 
@@ -489,6 +490,25 @@ namespace Fireteam.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Fireteam.Models.UserAudit", b =>
+                {
+                    b.Property<int>("UserAuditId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AuditEvent");
+
+                    b.Property<string>("IpAddress");
+
+                    b.Property<DateTimeOffset>("Timestamp");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("UserAuditId");
+
+                    b.ToTable("UserAuditEvents");
                 });
 
             modelBuilder.Entity("Fireteam.Models.UserFriend", b =>
@@ -581,10 +601,10 @@ namespace Fireteam.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(200);
+                        .HasMaxLength(254);
 
                     b.HasKey("Id");
 
