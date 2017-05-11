@@ -288,3 +288,6 @@ __pycache__/
 *.xsd.cs
 Contact GitHub API Training Shop Blog About
 © 2017 GitHub, Inc. Terms Privacy
+mariadb/aria_log.00000001
+mariadb/aria_log_control
+mariadb/ibdata1

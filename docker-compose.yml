@@ -6,3 +6,13 @@ services:
     build:
       context: ./fireteam.io
       dockerfile: Dockerfile
+
+  fireteamio-db:
+    image: mariadb:latest
+    environment:
+      - "MYSQL_DATABASE=fireteamio"
+      - "MYSQL_USER=fireteam_dbuser"
+      - "MYSQL_PASSWORD=9q!&oWEZT18pTz2@OL=3"
+      - "MYSQL_ROOT_PASSWORD=Grod9oLbE7FmIX9!82CWn"
+    ports:
+      - "3306:3306"
