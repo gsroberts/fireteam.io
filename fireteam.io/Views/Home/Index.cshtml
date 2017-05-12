@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Fireteam.Models.DashboardViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -8,15 +9,15 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="orange">
-                        <i class="material-icons">weekend</i>
+                        <i class="material-icons">event</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Activities</p>
-                        <h3 class="card-title">3</h3>
+                        <p class="category">My Activities</p>
+                        <h3 class="card-title">@Html.DisplayTextFor(m => m.UserActivitiesCount)</h3>
                     </div>
                     <div class="card-footer">
                         <div>
-                            <a href="#pablo">View My Activities</a>
+                            <a href="/useractivities/">View My Activities</a>
                         </div>
                     </div>
                 </div>
@@ -24,15 +25,15 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="rose">
-                        <i class="material-icons">equalizer</i>
+                        <i class="material-icons">group_add</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Groups</p>
-                        <h3 class="card-title">2</h3>
+                        <p class="category">My Groups</p>
+                        <h3 class="card-title">@Html.DisplayTextFor(m => m.UserGroupsCount)</h3>
                     </div>
                     <div class="card-footer">
                         <div>
-                             <a href="#">View My Groups</a>
+                            <a href="/usergroups/">View My Groups</a>
                         </div>
                     </div>
                 </div>
@@ -40,16 +41,16 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="green">
-                        <i class="material-icons">store</i>
+                        <i class="material-icons">group</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Friends</p>
-                        <h3 class="card-title">6</h3>
+                        <p class="category">My Friends</p>
+                        <h3 class="card-title">@Html.DisplayTextFor(m => m.UserFriendsCount)</h3>
                     </div>
                     <div class="card-footer">
                         <div>
-                            View My Friends
-                        </div>
+                            <a href="/userfriends/">View My Friends</a>
+</div>
                     </div>
                 </div>
             </div>
@@ -177,3 +178,5 @@
         </div>
     </div>
 </div>
+
+<script src="/js/dashboard.js" type="text/javascript"></script>

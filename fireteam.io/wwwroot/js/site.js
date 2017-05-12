@@ -966,3 +966,7 @@
     }
 
 }
+
+$(document).ready(function() {
+    
+});

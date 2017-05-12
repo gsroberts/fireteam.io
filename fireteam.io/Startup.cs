@@ -94,6 +94,18 @@ namespace Fireteam
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "User Activities alias",
+                    template: "useractivities/",
+                    defaults: new { controller = "ActivityUsers", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "User Groups alias",
+                    template: "usergroups/",
+                    defaults: new { controller = "GroupUsers", action = "Index" }
+                );
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

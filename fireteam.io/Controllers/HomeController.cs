@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Fireteam.Data;
+using Fireteam.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Fireteam.Common.Extensions;
 
 namespace Fireteam.Controllers
 {
@@ -15,25 +18,27 @@ namespace Fireteam.Controllers
     public class HomeController : Controller
     {
         private readonly FireteamDbContext _context;
+        private UserManager<User> _userManager;
 
-        public HomeController(FireteamDbContext context)
+        public HomeController(FireteamDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
             ViewData["Message"] = "Fireteam.io Home";
 
-            int currentTotalUsers = 0;
+            var viewModel = new DashboardViewModel();
 
-            var totalUsers = _context.Users;
-            if (totalUsers != null)
-            {
-                currentTotalUsers = totalUsers.Count();
-            }
+            var userId = _userManager.GetUserId(this.User);
 
-            return View();
+            viewModel.UserActivitiesCount = _context.ActivityUsers.Count(a => a.UserID == userId);
+            viewModel.UserGroupsCount = _context.GroupUsers.Count(g => g.UserID == userId);
+            viewModel.UserFriendsCount = _context.UserFriends.Count(f => f.UserID == userId);
+
+            return View(viewModel);
         }
 
         public IActionResult About()

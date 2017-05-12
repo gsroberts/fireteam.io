@@ -62,5 +62,23 @@
 
 img#sidebar-logo{
     height: 40px;
+}
 
+#logout-form {
+    width: 260px;
+    padding: 20px 0;
+}
+
+#logout-form-button {
+    width: 100%;
+    background: none !important;
+    color: inherit;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+    color: white;
+    text-align: center;
+    margin: auto;
+    /*border is optional*/
+    cursor: pointer;
 }

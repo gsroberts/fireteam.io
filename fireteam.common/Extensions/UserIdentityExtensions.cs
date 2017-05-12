@@ -25,6 +25,12 @@ namespace Fireteam.Common.Extensions
             return (!string.IsNullOrWhiteSpace(displayName)) ? displayName : null;
         }
 
+        public static string GetUserId(this IIdentity user)
+        {
+            var id = GetPropertyValue<string>(user, "Id");
+            return (!string.IsNullOrWhiteSpace(id)) ? id : null;
+        }
+
         private static T GetPropertyValue<T>(IIdentity user, string propName)
         {
             var prop = user.GetType()
