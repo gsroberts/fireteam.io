@@ -8,7 +8,7 @@
 
 <h2>@(ViewData["UserID"] != null ? "My Activities" : "Activities")</h2>
 
-<div class="container">
+<div class="container-fluid">
 
     <button id="create-button" class="btn btn-primary btn-round" asp-action="Create New">
         <i class="material-icons">add</i> Create New
@@ -18,7 +18,7 @@
         @{
             foreach (var item in Model)
             {
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="card">
                             <div class="card-header" data-background-color="orange">

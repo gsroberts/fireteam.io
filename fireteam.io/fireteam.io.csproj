@@ -17,6 +17,7 @@
     <Content Include="wwwroot\css\bootstrap.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\css\dashboard.css" />
     <Content Include="wwwroot\css\demo.css" />
     <Content Include="wwwroot\css\material-dashboard.css" />
     <Content Include="wwwroot\js\activity-users.js" />
